@@ -37,6 +37,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   /* ---------- NAV ---------- */
   .nav{
     position:sticky; top:0; z-index:20; background:var(--bg);
+  }
+  .nav-bar{
     display:flex; align-items:center; justify-content:space-between;
     padding:22px 5vw; border-bottom:1px solid var(--line);
   }
@@ -45,12 +47,38 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .links{ display:flex; gap:30px; font-size:0.92rem; }
   .links a{ text-decoration:none; color:var(--ink-soft); transition:color 0.15s ease; }
   .links a:hover{ color:var(--ink); }
+  .nav-right{ display:flex; align-items:center; gap:18px; }
   .lang-toggle{
     font-family:var(--font-warm); font-size:0.8rem; background:none; border:none; cursor:pointer;
     letter-spacing:0.04em; color:var(--ink-faint); display:flex; gap:6px; padding:0;
   }
   .lang-toggle .active{ color:var(--ink); font-weight:600; }
   .lang-toggle .sep{ color:var(--line); }
+
+  .menu-toggle{
+    display:none; flex-direction:column; justify-content:center; gap:5px;
+    width:30px; height:30px; background:none; border:none; cursor:pointer; padding:0;
+  }
+  .menu-toggle span{ display:block; width:100%; height:2px; background:var(--ink); transition:transform 0.2s ease, opacity 0.2s ease; }
+  .menu-toggle.open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+  .menu-toggle.open span:nth-child(2){ opacity:0; }
+  .menu-toggle.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+
+  .mobile-nav{
+    display:none; flex-direction:column;
+    border-bottom:1px solid var(--line); padding:6px 5vw 18px;
+  }
+  .mobile-nav.open{ display:flex; }
+  .mobile-nav a{
+    text-decoration:none; color:var(--ink-soft); font-family:var(--font-warm); font-size:1.05rem;
+    padding:16px 0; border-top:1px solid var(--line);
+  }
+  .mobile-nav a:hover{ color:var(--ink); }
+
+  @media (max-width:860px){
+    .links{ display:none; }
+    .menu-toggle{ display:flex; }
+  }
 
   /* ---------- HERO ---------- */
   .hero{ position:relative; display:grid; grid-template-columns:0.88fr 1fr; align-items:stretch; min-height:600px; }
@@ -183,16 +211,29 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
   <header class="nav">
-    <a href="#" class="brand"><img src="images/logo.png" alt=""><span data-pl="Dom nad Buwełnem" data-en="Buwelno Lake House">Dom nad Buwełnem</span></a>
-    <nav class="links">
+    <div class="nav-bar">
+      <a href="#" class="brand"><img src="images/logo.png" alt=""><span data-pl="Dom nad Buwełnem" data-en="Buwelno Lake House">Dom nad Buwełnem</span></a>
+      <nav class="links">
+        <a href="#pokoje" data-pl="Układ domu" data-en="Home Layout">Układ domu</a>
+        <a href="#okolica" data-pl="Okolica" data-en="Surroundings">Okolica</a>
+        <a href="#opinie" data-pl="Oczami Gości" data-en="Guest Reviews">Oczami Gości</a>
+        <a href="#kontakt" data-pl="Kontakt" data-en="Contact">Kontakt</a>
+      </nav>
+      <div class="nav-right">
+        <button class="lang-toggle" id="langToggle" aria-label="Zmień język strony">
+          <span class="active" data-lang-opt="pl">PL</span><span class="sep">/</span><span data-lang-opt="en">EN</span>
+        </button>
+        <button class="menu-toggle" id="menuToggle" aria-label="Otwórz menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <nav class="mobile-nav" id="mobileNav">
       <a href="#pokoje" data-pl="Układ domu" data-en="Home Layout">Układ domu</a>
       <a href="#okolica" data-pl="Okolica" data-en="Surroundings">Okolica</a>
       <a href="#opinie" data-pl="Oczami Gości" data-en="Guest Reviews">Oczami Gości</a>
       <a href="#kontakt" data-pl="Kontakt" data-en="Contact">Kontakt</a>
     </nav>
-    <button class="lang-toggle" id="langToggle" aria-label="Zmień język strony">
-      <span class="active" data-lang-opt="pl">PL</span><span class="sep">/</span><span data-lang-opt="en">EN</span>
-    </button>
   </header>
 
   <section class="hero">
@@ -509,6 +550,25 @@ document.getElementById('langToggle').addEventListener('click', ()=>{
   applyLang();
 });
 renderBands();
+
+/* ---------- MENU MOBILNE ---------- */
+(function(){
+  const menuToggle = document.getElementById('menuToggle');
+  const mobileNav = document.getElementById('mobileNav');
+  function closeMenu(){
+    mobileNav.classList.remove('open');
+    menuToggle.classList.remove('open');
+    menuToggle.setAttribute('aria-expanded', 'false');
+  }
+  menuToggle.addEventListener('click', ()=>{
+    const isOpen = mobileNav.classList.toggle('open');
+    menuToggle.classList.toggle('open', isOpen);
+    menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+  mobileNav.querySelectorAll('a').forEach(a=>{
+    a.addEventListener('click', closeMenu);
+  });
+})();
 
 /* ---------- OCZAMI GOŚCI ---------- */
 const reviews = [
