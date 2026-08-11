@@ -178,6 +178,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   /* ---------- KONTAKT ---------- */
   .contact-wrap{ display:flex; flex-direction:column; gap:22px; margin-top:44px; }
   .contact-address{ font-family:var(--font-warm); font-size:0.95rem; color:var(--ink-soft); margin:-6px 0 0; }
+  .contact-social{ display:inline-flex; align-items:center; gap:10px; text-decoration:none; color:var(--ink-soft); font-family:var(--font-warm); font-size:0.95rem; width:fit-content; transition:color 0.15s ease; }
+  .contact-social:hover{ color:var(--ink); }
+  .contact-social svg{ flex-shrink:0; }
   .contact-map{ width:100%; aspect-ratio:16/9; margin-top:48px; background:var(--bg-soft); overflow:hidden; }
   @media (max-width:640px){ .contact-map{ aspect-ratio:4/5; } }
   .contact-line{ font-family:var(--font-display); font-size:clamp(1.6rem,3vw,2.2rem); text-decoration:none; border-bottom:1px solid var(--line); padding-bottom:18px; display:inline-block; width:fit-content; }
@@ -185,7 +188,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .contact-hint{ font-family:var(--font-warm); font-size:0.9rem; color:var(--ink-faint); max-width:50ch; }
 
   /* ---------- FOOTER ---------- */
-  footer{ border-top:1px solid var(--line); padding:36px 6vw; display:flex; justify-content:space-between; align-items:center; font-family:var(--font-warm); font-size:0.78rem; color:var(--ink-faint); }
+  footer{ border-top:1px solid var(--line); padding:36px 6vw; display:flex; flex-direction:column; gap:16px; font-family:var(--font-warm); font-size:0.78rem; color:var(--ink-faint); }
+  .footer-row{ display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; }
+  .social-link{ color:var(--ink-faint); display:inline-flex; transition:color 0.15s ease; }
+  .social-link:hover{ color:var(--ink); }
+  .footer-socials{ display:flex; gap:14px; }
+  .footer-credit{ margin:0; font-size:0.74rem; color:var(--ink-faint); opacity:0.75; }
 
   /* ---------- LIGHTBOX ---------- */
   .lightbox{ position:fixed; inset:0; background:rgba(10,10,10,0.94); z-index:200; display:none; align-items:center; justify-content:center; padding:4vh 4vw; }
@@ -370,19 +378,52 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="section-head">
       <p class="section-eyebrow" data-pl="Kontakt" data-en="Contact">Kontakt</p>
       <h2 class="section-title" data-pl="Zapytaj o wolny termin" data-en="Ask about availability">Zapytaj o wolny termin</h2>
-      <p class="section-lede" data-pl="Rezerwacje wyłącznie bezpośrednio — telefonicznie lub mailowo." data-en="Bookings only by direct contact — by phone or email.">Rezerwacje wyłącznie bezpośrednio — telefonicznie lub mailowo.</p>
+      <p class="section-lede" data-pl="Rezerwacje telefonicznie lub mailowo." data-en="Bookings by phone or email.">Rezerwacje telefonicznie lub mailowo.</p>
     </div>
     <div class="contact-wrap">
       <a class="contact-line" href="tel:+48508436148">+48 508 436 148</a>
       <a class="contact-line" href="mailto:kontakt@domnadbuwelnem.pl">kontakt@domnadbuwelnem.pl</a>
       <p class="contact-address" data-pl="Adres domu: Marcinowa Wola 9C, 11-513 Marcinowa Wola" data-en="House address: Marcinowa Wola 9C, 11-513 Marcinowa Wola, Poland">Adres domu: Marcinowa Wola 9C, 11-513 Marcinowa Wola</p>
+      <a class="contact-social" href="https://www.instagram.com/dom_nad_buwelnem" target="_blank" rel="noopener">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5.5"/>
+          <circle cx="12" cy="12" r="4.2"/>
+          <circle cx="17.3" cy="6.7" r="0.6" fill="currentColor" stroke="none"/>
+        </svg>
+        <span data-pl="Obserwuj nas na Instagramie" data-en="Follow us on Instagram">Obserwuj nas na Instagramie</span>
+      </a>
+      <a class="contact-social" href="https://www.facebook.com/DomNadBuwelnem/" target="_blank" rel="noopener">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5.5"/>
+          <path d="M14.8 6.8h-1.6c-1.4 0-2.3.9-2.3 2.4v1.7h-1.8v2.3h1.8v6h2.5v-6h2l.3-2.3h-2.3v-1.4c0-.5.3-.8.8-.8h1.6z" fill="currentColor" stroke="none"/>
+        </svg>
+        <span data-pl="Obserwuj nas na Facebooku" data-en="Follow us on Facebook">Obserwuj nas na Facebooku</span>
+      </a>
     </div>
     <div id="map" class="contact-map" role="application" aria-label="Mapa lokalizacji domu"></div>
   </section>
 
   <footer>
-    <span>© 2026 Dom nad Buwełnem</span>
-    <span data-pl="Marcinowa Wola, Mazury" data-en="Marcinowa Wola, Masuria, Poland">Marcinowa Wola, Mazury</span>
+    <div class="footer-row">
+      <span>© 2026 Dom nad Buwełnem</span>
+      <div class="footer-socials">
+        <a href="https://www.instagram.com/dom_nad_buwelnem" target="_blank" rel="noopener" class="social-link" aria-label="Instagram">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5.5"/>
+            <circle cx="12" cy="12" r="4.2"/>
+            <circle cx="17.3" cy="6.7" r="0.6" fill="currentColor" stroke="none"/>
+          </svg>
+        </a>
+        <a href="https://www.facebook.com/DomNadBuwelnem/" target="_blank" rel="noopener" class="social-link" aria-label="Facebook">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5.5"/>
+            <path d="M14.8 6.8h-1.6c-1.4 0-2.3.9-2.3 2.4v1.7h-1.8v2.3h1.8v6h2.5v-6h2l.3-2.3h-2.3v-1.4c0-.5.3-.8.8-.8h1.6z" fill="currentColor" stroke="none"/>
+          </svg>
+        </a>
+      </div>
+      <span data-pl="Marcinowa Wola, Mazury" data-en="Marcinowa Wola, Masuria, Poland">Marcinowa Wola, Mazury</span>
+    </div>
+    <p class="footer-credit">Designed by a human and Claude Code</p>
   </footer>
 
   <!-- ---------- LIGHTBOX ---------- -->
