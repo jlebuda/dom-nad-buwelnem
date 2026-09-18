@@ -16,13 +16,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=Karla:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg: #FFFFFF;
-    --bg-soft: #F5F4F2;
-    --ink: #131313;
-    --ink-soft: #6E6E6C;
-    --ink-faint: #9C9C9A;
-    --line: #DEDDD9;
-    --card: #FAFAF8;
+    --bg: #121317;
+    --bg-soft: #1B1D23;
+    --ink: #F2F4F8;
+    --ink-soft: #8CA0C4;
+    --ink-faint: #56617A;
+    --line: #2B2F38;
+    --card: #1A1C22;
+    --chip-bg: #4C6089;
+    --chip-bg-hover: #5B6D92;
     --font-display: 'Instrument Serif', serif;
     --font-body: 'Inter', sans-serif;
     --font-warm: 'Karla', sans-serif;
@@ -89,8 +91,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .subhead{ font-family:var(--font-warm); font-size:1.1rem; line-height:1.6; color:var(--ink-soft); margin:0 0 28px; max-width:46ch; }
   .meta{ font-family:var(--font-warm); font-size:0.8rem; color:var(--ink-faint); margin:0 0 36px; letter-spacing:0.08em; text-transform:uppercase; font-weight:500; }
   .cta-row{ display:flex; flex-direction:column; gap:18px; align-items:flex-start; }
-  .cta{ font-family:var(--font-body); font-weight:600; font-size:0.98rem; background:var(--ink); color:#fff; text-decoration:none; padding:14px 30px; border-radius:2px; transition:background 0.15s ease; }
-  .cta:hover{ background:#2E2E2C; }
+  .cta{ font-family:var(--font-body); font-weight:600; font-size:0.98rem; background:var(--chip-bg); color:#fff; text-decoration:none; padding:14px 30px; border-radius:2px; transition:background 0.15s ease; }
+  .cta:hover{ background:var(--chip-bg-hover, #2E2E2C); }
   .contact-inline{ display:flex; gap:20px; font-family:var(--font-warm); font-size:0.8rem; color:var(--ink-soft); flex-wrap:wrap; }
   .hero-photo{ position:relative; background:linear-gradient(160deg,#ECEBE8 0%,#C7C6C1 55%,#A9A8A3 100%); clip-path:polygon(12% 0%,100% 0%,100% 100%,4% 100%); overflow:hidden; }
   .hero-photo img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 62%; }
@@ -184,7 +186,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .review-name{ font-weight:600; color:var(--ink); }
   .review-flag{ font-size:1rem; }
   .review-platform-badge{ font-family:var(--font-warm); font-size:0.66rem; letter-spacing:0.07em; text-transform:uppercase; border:1px solid var(--line); border-radius:999px; padding:3px 11px; color:var(--ink-soft); }
-  .review-rating-booking{ display:inline-flex; align-items:center; justify-content:center; min-width:20px; height:20px; padding:0 5px; background:var(--ink); color:#fff; font-family:var(--font-warm); font-weight:700; font-size:0.72rem; border-radius:4px; }
+  .review-rating-booking{ display:inline-flex; align-items:center; justify-content:center; min-width:20px; height:20px; padding:0 5px; background:var(--chip-bg); color:#fff; font-family:var(--font-warm); font-weight:700; font-size:0.72rem; border-radius:4px; }
   .review-rating-airbnb{ display:inline-flex; align-items:center; gap:3px; font-family:var(--font-warm); font-size:0.8rem; color:var(--ink-soft); }
   .review-rating-airbnb .star{ color:var(--ink); font-size:0.8rem; letter-spacing:1px; }
   .rev-nav{ background:none; border:none; font-size:1.5rem; cursor:pointer; color:var(--ink-faint); padding:8px; line-height:1; flex:1 1 auto; display:flex; align-items:center; justify-content:center; transition:color 0.15s ease, background 0.15s ease; }
@@ -583,7 +585,6 @@ const rooms = [
       { src:'images/lake-sunrise.jpg', aspect:'4/3' },
       { src:'images/lake-fishing.jpg', aspect:'4/3' },
       { src:'images/lake-sup.jpg', aspect:'4/3' },
-      { src:'images/lake-kids-sup.jpg', aspect:'16/9' },
     ] },
 ];
 
@@ -781,11 +782,8 @@ function showGalleryImage(){
 document.addEventListener('click', e=>{
   const target = e.target.closest('.zoomable');
   if(target){
-    const galleryId = target.dataset.gallery;
-    galleryImgs = galleryId
-      ? Array.from(document.querySelectorAll(`.zoomable[data-gallery="${galleryId}"]`))
-      : [target];
-    galleryIndex = Math.max(0, galleryImgs.indexOf(target));
+    galleryImgs = Array.from(document.querySelectorAll('.zoomable'));
+    galleryIndex = galleryImgs.indexOf(target);
     showGalleryImage();
     lightbox.classList.add('open');
   }
