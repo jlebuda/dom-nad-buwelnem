@@ -140,29 +140,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .count-3{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; height:280px; }
   .count-3 .ph{ height:100%; }
 
-  /* ---- count-many: hero + scrollable filmstrip ---- */
-  .count-many .hero-shot{ aspect-ratio:21/10; margin-bottom:10px; position:relative; }
-  .count-many .hero-shot .ph{ position:absolute; inset:0; width:100%; height:100%; }
-  .count-many .filmstrip{ display:flex; gap:10px; overflow-x:auto; padding-bottom:10px; -webkit-overflow-scrolling:touch; scroll-snap-type:x proximity; scroll-behavior:smooth; }
-  .count-many .filmstrip .ph{ flex:0 0 220px; aspect-ratio:4/3; scroll-snap-align:start; }
-  .count-many .filmstrip::-webkit-scrollbar{ height:5px; }
-  .count-many .filmstrip::-webkit-scrollbar-thumb{ background:var(--line); border-radius:4px; }
-  .count-many{ position:relative; }
-  .filmstrip-wrap{ position:relative; }
-  .film-nav{ position:absolute; top:0; bottom:10px; width:48px; background:none; border:none; cursor:pointer; color:var(--ink); font-size:1.3rem; z-index:5; display:flex; align-items:center; justify-content:center; transition:opacity 0.15s ease; opacity:0.55; }
-  .film-nav:hover{ opacity:1; }
-  .film-nav.prev{ left:0; background:linear-gradient(90deg, var(--bg) 30%, transparent); justify-content:flex-start; }
-  .film-nav.next{ right:0; background:linear-gradient(270deg, var(--bg) 30%, transparent); justify-content:flex-end; }
+  /* ---- count-many: responsive grid (4 cols desktop) ---- */
+  .count-many{ display:grid; grid-template-columns:repeat(4, 1fr); gap:10px; }
+  .count-many .ph{ aspect-ratio:4/3; }
 
   .room-band-text .room-name{ font-family:var(--font-display); font-size:clamp(1.7rem,2.6vw,2.3rem); margin:0 0 16px; font-weight:400; }
   .room-band-text .room-desc{ font-family:var(--font-warm); font-size:1rem; line-height:1.65; color:var(--ink-soft); margin:0; max-width:42ch; }
   @media (max-width:860px){
     .room-band{ padding:36px 0; }
+    .count-many{ grid-template-columns:repeat(3, 1fr); }
   }
   @media (max-width:640px){
     .count-2, .count-3{ display:block; height:auto; }
     .count-2 .ph, .count-3 .ph{ height:auto; aspect-ratio:4/3; margin-bottom:10px; }
-    .count-many .filmstrip .ph{ flex-basis:160px; }
+    .count-many{ grid-template-columns:repeat(2, 1fr); }
   }
 
   /* ---------- OKOLICA ---------- */
@@ -235,7 +226,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .lightbox{ position:fixed; inset:0; background:rgba(10,10,10,0.94); z-index:200; display:none; align-items:center; justify-content:center; padding:4vh 4vw; }
   .lightbox.open{ display:flex; }
   .lightbox img{ max-width:100%; max-height:100%; object-fit:contain; }
-  .lightbox-close{ position:absolute; top:20px; right:26px; background:none; border:none; color:#fff; font-size:2rem; cursor:pointer; line-height:1; }
+  .lightbox-close{ position:absolute; top:20px; right:26px; background:none; border:none; color:#fff; font-size:2rem; cursor:pointer; line-height:1; z-index:212; }
+  .lightbox-nav{ position:absolute; top:0; bottom:0; width:20%; min-width:60px; background:none; border:none; color:#fff; font-size:2.2rem; cursor:pointer; opacity:0.55; transition:opacity 0.15s ease; z-index:210; display:flex; align-items:center; }
+  .lightbox-nav:hover{ opacity:1; }
+  .lightbox-nav.prev{ left:0; justify-content:flex-start; padding-left:20px; }
+  .lightbox-nav.next{ right:0; justify-content:flex-end; padding-right:20px; }
+  @media (max-width:640px){ .lightbox-nav{ width:15%; font-size:1.7rem; } }
 
   @media (max-width: 860px){
     .hero{ grid-template-columns:1fr; min-height:auto; }
@@ -312,9 +308,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <p class="section-lede" data-pl="Dom łączy skandynawską prostotę z mazurską tradycją. 155 m², dwie kondygnacje, ogromny taras z wygodną sofą oraz miejscem na posiłki, własny, łagodny dostęp do jeziora Buwełno — na wyłączność tylko dla Was." data-en="The house pairs Scandinavian simplicity with Masurian tradition. 155 m² over two floors, a huge terrace with a comfortable sofa and space to dine, and gentle private access to Lake Buwełno — all yours, exclusively.">Dom łączy skandynawską prostotę z mazurską tradycją. 155 m², dwie kondygnacje, ogromny taras z wygodną sofą oraz miejscem na posiłki, własny, łagodny dostęp do jeziora Buwełno — na wyłączność tylko dla Was.</p>
     </div>
     <div class="about-grid count-3">
-      <div class="ph"><img class="zoomable" src="images/lake-aerial.jpg" alt="Jezioro Buwełno z lotu ptaka"></div>
-      <div class="ph"><img class="zoomable" src="images/facade.jpg" alt="Fasada domu nad Buwełnem"></div>
-      <div class="ph"><img class="zoomable" src="images/campfire.jpg" alt="Wieczór przy ognisku"></div>
+      <div class="ph"><img class="zoomable" src="images/lake-aerial.jpg" alt="Jezioro Buwełno z lotu ptaka" data-gallery="o-domu" data-index="0"></div>
+      <div class="ph"><img class="zoomable" src="images/facade.jpg" alt="Fasada domu nad Buwełnem" data-gallery="o-domu" data-index="1"></div>
+      <div class="ph"><img class="zoomable" src="images/campfire.jpg" alt="Wieczór przy ognisku" data-gallery="o-domu" data-index="2"></div>
     </div>
     <ul class="facts">
       <li data-pl="własna plaża i łagodne wejście do wody" data-en="private beach, gentle water entry">własna plaża i łagodne wejście do wody</li>
@@ -492,7 +488,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- ---------- LIGHTBOX ---------- -->
   <div class="lightbox" id="lightbox">
     <button class="lightbox-close" id="lightboxClose" aria-label="Zamknij">×</button>
+    <button class="lightbox-nav prev" id="lightboxPrev" aria-label="Poprzednie zdjęcie">←</button>
     <img id="lightboxImg" src="" alt="">
+    <button class="lightbox-nav next" id="lightboxNext" aria-label="Następne zdjęcie">→</button>
   </div>
 
 <script>
@@ -590,13 +588,14 @@ const rooms = [
 ];
 
 const lang = () => document.documentElement.dataset.lang;
-function photoSlotHTML(src, altText, placeholderText, fit, pos){
+function photoSlotHTML(src, altText, placeholderText, fit, pos, galleryId, index){
   if(!src) return `<div class="ph"><span>${placeholderText}</span></div>`;
   const posStyle = pos ? `object-position:${pos};` : '';
+  const galleryAttrs = galleryId ? ` data-gallery="${galleryId}" data-index="${index}"` : '';
   if(fit === 'contain'){
-    return `<div class="ph" style="background:var(--card);"><img class="zoomable" src="${src}" alt="${altText}" style="object-fit:contain;"></div>`;
+    return `<div class="ph" style="background:var(--card);"><img class="zoomable" src="${src}" alt="${altText}" style="object-fit:contain;"${galleryAttrs}></div>`;
   }
-  return `<div class="ph"><img class="zoomable" src="${src}" alt="${altText}" style="${posStyle}"></div>`;
+  return `<div class="ph"><img class="zoomable" src="${src}" alt="${altText}" style="${posStyle}"${galleryAttrs}></div>`;
 }
 
 function normalizePhotos(r){
@@ -604,24 +603,17 @@ function normalizePhotos(r){
   return [1,2,3].map(n => r['photo'+n] ? { src:r['photo'+n], fit:r['photo'+n+'Fit'], pos:r['photo'+n+'Pos'] } : null).filter(Boolean);
 }
 
-function photosBlockHTML(photos, name, shot){
+function photosBlockHTML(photos, name, shot, id){
   const count = photos.length;
   if(count === 0){
     return `<div class="room-band-photos count-1">${photoSlotHTML(null, name, `${shot}: ${name.toLowerCase()}`)}</div>`;
   }
   if(count >= 6){
-    const [hero, ...rest] = photos;
-    const filmId = 'film-' + r.id;
-    const heroHtml = `<div class="hero-shot">${photoSlotHTML(hero.src, name, `${shot} 1: ${name.toLowerCase()}`, hero.fit, hero.pos)}</div>`;
-    const filmHtml = `<div class="filmstrip-wrap">
-      <button class="film-nav prev" data-film="${filmId}" aria-label="${lang()==='pl' ? 'Poprzednie zdjęcia' : 'Previous photos'}">←</button>
-      <div class="filmstrip" id="${filmId}">${rest.map((p,i)=>photoSlotHTML(p.src, name, `${shot} ${i+2}: ${name.toLowerCase()}`, p.fit, p.pos)).join('')}</div>
-      <button class="film-nav next" data-film="${filmId}" aria-label="${lang()==='pl' ? 'Następne zdjęcia' : 'Next photos'}">→</button>
-    </div>`;
-    return `<div class="room-band-photos count-many">${heroHtml}${filmHtml}</div>`;
+    const inner = photos.map((p,i)=> photoSlotHTML(p.src, name, `${shot} ${i+1}: ${name.toLowerCase()}`, p.fit, p.pos, id, i)).join('');
+    return `<div class="room-band-photos count-many">${inner}</div>`;
   }
   const cls = 'count-' + Math.min(count, 3);
-  const inner = photos.map((p,i)=> photoSlotHTML(p.src, name, `${shot} ${i+1}: ${name.toLowerCase()}`, p.fit, p.pos)).join('');
+  const inner = photos.map((p,i)=> photoSlotHTML(p.src, name, `${shot} ${i+1}: ${name.toLowerCase()}`, p.fit, p.pos, id, i)).join('');
   return `<div class="room-band-photos ${cls}">${inner}</div>`;
 }
 
@@ -629,7 +621,7 @@ function roomBandHTML(r){
   const name = lang()==='pl' ? r.pl : r.en;
   const desc = lang()==='pl' ? r.descPl : r.descEn;
   const shot = lang()==='pl' ? 'zdjęcie' : 'photo';
-  const photosHtml = photosBlockHTML(normalizePhotos(r), name, shot);
+  const photosHtml = photosBlockHTML(normalizePhotos(r), name, shot, r.id);
   return `<div class="room-band">
     <div class="room-band-text">
       <h3 class="room-name">${name}</h3>
@@ -768,43 +760,53 @@ renderReview();
   }, { passive:true });
 })();
 
-/* ---------- LIGHTBOX ---------- */
+/* ---------- LIGHTBOX (z nawigacją w obrębie galerii pokoju) ---------- */
 const lightbox = document.getElementById('lightbox');
 const lightboxImg = document.getElementById('lightboxImg');
+const lightboxPrev = document.getElementById('lightboxPrev');
+const lightboxNext = document.getElementById('lightboxNext');
+let galleryImgs = [];
+let galleryIndex = 0;
+
+function showGalleryImage(){
+  const img = galleryImgs[galleryIndex];
+  if(!img) return;
+  lightboxImg.src = img.src;
+  lightboxImg.alt = img.alt || '';
+  const multi = galleryImgs.length > 1;
+  lightboxPrev.style.display = multi ? 'flex' : 'none';
+  lightboxNext.style.display = multi ? 'flex' : 'none';
+}
+
 document.addEventListener('click', e=>{
   const target = e.target.closest('.zoomable');
   if(target){
-    lightboxImg.src = target.src;
-    lightboxImg.alt = target.alt || '';
+    const galleryId = target.dataset.gallery;
+    galleryImgs = galleryId
+      ? Array.from(document.querySelectorAll(`.zoomable[data-gallery="${galleryId}"]`))
+      : [target];
+    galleryIndex = Math.max(0, galleryImgs.indexOf(target));
+    showGalleryImage();
     lightbox.classList.add('open');
   }
 });
+lightboxPrev.addEventListener('click', e=>{
+  e.stopPropagation();
+  galleryIndex = (galleryIndex - 1 + galleryImgs.length) % galleryImgs.length;
+  showGalleryImage();
+});
+lightboxNext.addEventListener('click', e=>{
+  e.stopPropagation();
+  galleryIndex = (galleryIndex + 1) % galleryImgs.length;
+  showGalleryImage();
+});
 document.getElementById('lightboxClose').addEventListener('click', ()=> lightbox.classList.remove('open'));
 lightbox.addEventListener('click', e=>{ if(e.target === lightbox) lightbox.classList.remove('open'); });
-document.addEventListener('keydown', e=>{ if(e.key === 'Escape') lightbox.classList.remove('open'); });
-
-/* ---------- FILMSTRIP NAV (pętla) ---------- */
-document.addEventListener('click', e=>{
-  const btn = e.target.closest('.film-nav');
-  if(!btn) return;
-  const strip = document.getElementById(btn.dataset.film);
-  if(!strip) return;
-  const firstTile = strip.firstElementChild;
-  const tileWidth = firstTile ? firstTile.getBoundingClientRect().width + 10 : 230;
-  const maxScroll = strip.scrollWidth - strip.clientWidth;
-  if(btn.classList.contains('next')){
-    if(strip.scrollLeft >= maxScroll - 4){
-      strip.scrollTo({ left:0, behavior:'smooth' });
-    } else {
-      strip.scrollBy({ left:tileWidth, behavior:'smooth' });
-    }
-  } else {
-    if(strip.scrollLeft <= 4){
-      strip.scrollTo({ left:maxScroll, behavior:'smooth' });
-    } else {
-      strip.scrollBy({ left:-tileWidth, behavior:'smooth' });
-    }
-  }
+document.addEventListener('keydown', e=>{
+  if(!lightbox.classList.contains('open')) return;
+  if(e.key === 'Escape') lightbox.classList.remove('open');
+  if(e.key === 'ArrowRight'){ galleryIndex = (galleryIndex + 1) % galleryImgs.length; showGalleryImage(); }
+  if(e.key === 'ArrowLeft'){ galleryIndex = (galleryIndex - 1 + galleryImgs.length) % galleryImgs.length; showGalleryImage(); }
 });
 
 /* ---------- MAPA GOOGLE ---------- */
