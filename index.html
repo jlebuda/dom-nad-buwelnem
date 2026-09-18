@@ -16,15 +16,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=Karla:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg: #121317;
-    --bg-soft: #1B1D23;
-    --ink: #F2F4F8;
-    --ink-soft: #8CA0C4;
-    --ink-faint: #56617A;
-    --line: #2B2F38;
-    --card: #1A1C22;
-    --chip-bg: #4C6089;
-    --chip-bg-hover: #5B6D92;
+    --bg: #FFFFFF;
+    --bg-soft: #F5F4F2;
+    --ink: #131313;
+    --ink-soft: #6E6E6C;
+    --ink-faint: #9C9C9A;
+    --line: #DEDDD9;
+    --card: #FAFAF8;
+    --chip-bg: var(--ink);
+    --accent: #B0703C;
+    --accent-hover: #96602F;
     --font-display: 'Instrument Serif', serif;
     --font-body: 'Inter', sans-serif;
     --font-warm: 'Karla', sans-serif;
@@ -48,7 +49,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .brand img{ height:40px; width:40px; }
   .links{ display:flex; gap:30px; font-size:0.92rem; }
   .links a{ text-decoration:none; color:var(--ink-soft); transition:color 0.15s ease; }
-  .links a:hover{ color:var(--ink); }
+  .links a:hover{ color:var(--accent); }
   .nav-right{ display:flex; align-items:center; gap:18px; }
   .lang-toggle{
     font-family:var(--font-warm); font-size:0.8rem; background:none; border:none; cursor:pointer;
@@ -75,7 +76,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     text-decoration:none; color:var(--ink-soft); font-family:var(--font-warm); font-size:1.05rem;
     padding:16px 0; border-top:1px solid var(--line);
   }
-  .mobile-nav a:hover{ color:var(--ink); }
+  .mobile-nav a:hover{ color:var(--accent); }
 
   @media (max-width:860px){
     .links{ display:none; }
@@ -87,12 +88,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .hero-text{ display:flex; flex-direction:column; justify-content:center; padding:0 6vw; max-width:560px; }
   .eyebrow{ font-family:var(--font-warm); font-size:0.78rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-faint); margin:0 0 20px; }
   .headline{ font-family:var(--font-display); font-weight:400; font-size:clamp(2.8rem, 5.2vw, 4.6rem); line-height:1.05; margin:0 0 24px; letter-spacing:-0.01em; }
-  .headline em{ font-style:italic; color:var(--ink-soft); }
+  .headline em{ font-style:italic; color:var(--accent); }
   .subhead{ font-family:var(--font-warm); font-size:1.1rem; line-height:1.6; color:var(--ink-soft); margin:0 0 28px; max-width:46ch; }
   .meta{ font-family:var(--font-warm); font-size:0.8rem; color:var(--ink-faint); margin:0 0 36px; letter-spacing:0.08em; text-transform:uppercase; font-weight:500; }
   .cta-row{ display:flex; flex-direction:column; gap:18px; align-items:flex-start; }
-  .cta{ font-family:var(--font-body); font-weight:600; font-size:0.98rem; background:var(--chip-bg); color:#fff; text-decoration:none; padding:14px 30px; border-radius:2px; transition:background 0.15s ease; }
-  .cta:hover{ background:var(--chip-bg-hover, #2E2E2C); }
+  .cta{ font-family:var(--font-body); font-weight:600; font-size:0.98rem; background:var(--accent); color:#fff; text-decoration:none; padding:14px 30px; border-radius:2px; transition:background 0.15s ease; }
+  .cta:hover{ background:var(--accent-hover); }
   .contact-inline{ display:flex; gap:20px; font-family:var(--font-warm); font-size:0.8rem; color:var(--ink-soft); flex-wrap:wrap; }
   .hero-photo{ position:relative; background:linear-gradient(160deg,#ECEBE8 0%,#C7C6C1 55%,#A9A8A3 100%); clip-path:polygon(12% 0%,100% 0%,100% 100%,4% 100%); overflow:hidden; }
   .hero-photo img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 62%; }
@@ -165,9 +166,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .sport-list li{ font-family:var(--font-warm); font-size:0.98rem; color:var(--ink-soft); padding:14px 2px; border-top:1px solid var(--line); line-height:1.5; }
   .sport-list li:last-child{ border-bottom:1px solid var(--line); }
   .history-list{ list-style:none; padding:0; margin:0; }
-  .history-list li{ border-top:1px solid var(--line); padding:16px 2px; }
+  .history-list li{ border-top:1px solid var(--line); padding:18px 2px; }
   .history-list li:last-child{ border-bottom:1px solid var(--line); }
-  .history-list .h-name{ display:block; font-family:var(--font-display); font-size:1.05rem; color:var(--ink); margin-bottom:4px; }
+  .history-list .h-name{ display:block; font-family:var(--font-display); font-size:1.2rem; color:var(--ink); margin-bottom:6px; }
   .history-list .h-desc{ font-family:var(--font-warm); font-size:0.88rem; color:var(--ink-soft); line-height:1.5; }
   .okolica-col h3{ font-family:var(--font-warm); font-size:0.78rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-faint); margin:0 0 22px; font-weight:600; }
   .okolica-list{ list-style:none; padding:0; margin:0; }
@@ -193,7 +194,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .rev-nav:hover{ color:var(--ink); background:var(--bg-soft); }
   .review-dots{ display:flex; justify-content:center; gap:8px; margin-top:8px; }
   .review-dot{ width:7px; height:7px; border-radius:50%; background:var(--line); border:none; cursor:pointer; padding:0; }
-  .review-dot.active{ background:var(--ink); }
+  .review-dot.active{ background:var(--accent); }
   @media (max-width:640px){ .reviews-carousel{ gap:8px; } .rev-nav{ font-size:1.2rem; padding:4px; } }
 
   .ai-summary{ max-width:760px; margin:56px auto 0; padding-top:40px; border-top:1px solid var(--line); text-align:left; }
@@ -201,7 +202,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .ai-summary-title{ font-family:var(--font-display); font-weight:400; font-size:clamp(1.3rem,2.2vw,1.6rem); margin:0 0 14px; }
   .ai-summary-text{ font-family:var(--font-warm); font-size:1rem; line-height:1.7; color:var(--ink-soft); margin:0; max-width:66ch; }
   .plain-list{ list-style:none; padding:0; margin:0; }
-  .plain-list li{ font-family:var(--font-warm); font-size:0.98rem; color:var(--ink-soft); padding:14px 2px; border-top:1px solid var(--line); }
+  .plain-list li{ font-family:var(--font-display); font-size:1.2rem; color:var(--ink); padding:18px 2px; border-top:1px solid var(--line); }
   .plain-list li:last-child{ border-bottom:1px solid var(--line); }
 
   /* ---------- KONTAKT ---------- */
@@ -217,12 +218,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .contact-hint{ font-family:var(--font-warm); font-size:0.9rem; color:var(--ink-faint); max-width:50ch; }
 
   /* ---------- FOOTER ---------- */
-  footer{ border-top:1px solid var(--line); padding:36px 6vw; display:flex; flex-direction:column; gap:16px; font-family:var(--font-warm); font-size:0.78rem; color:var(--ink-faint); }
+  footer{ background:var(--accent); border-top:1px solid var(--accent-hover); padding:36px 6vw; display:flex; flex-direction:column; gap:16px; font-family:var(--font-warm); font-size:0.78rem; color:rgba(255,255,255,0.92); }
+  footer a{ color:rgba(255,255,255,0.92); }
   .footer-row{ display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; }
-  .social-link{ color:var(--ink-faint); display:inline-flex; transition:color 0.15s ease; }
-  .social-link:hover{ color:var(--ink); }
+  .social-link{ color:#fff; display:inline-flex; transition:opacity 0.15s ease; opacity:0.85; }
+  .social-link:hover{ opacity:1; }
   .footer-socials{ display:flex; gap:14px; }
-  .footer-credit{ margin:0; font-size:0.74rem; color:var(--ink-faint); opacity:0.75; }
+  .footer-credit{ margin:0; font-size:0.74rem; color:#fff; opacity:0.65; }
 
   /* ---------- LIGHTBOX ---------- */
   .lightbox{ position:fixed; inset:0; background:rgba(10,10,10,0.94); z-index:200; display:none; align-items:center; justify-content:center; padding:4vh 4vw; }
@@ -369,7 +371,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <li><a href="https://maps.app.goo.gl/G79eNArvR9LQ3NucA" target="_blank" rel="noopener"><span data-pl="Plac zabaw, boisko i siłownia plenerowa — 500 m" data-en="Playground, sports field and outdoor gym — 500 m">Plac zabaw, boisko i siłownia plenerowa — 500 m</span><span class="arrow">↗</span></a></li>
         </ul>
         <ul class="plain-list">
-          <li data-pl="Kajak i 2 SUPy — dostępne dla gości na miejscu, bez dodatkowych opłat" data-en="Kayak and 2 SUPs — available to guests on site, at no extra charge">Kajak i 2 SUPy — dostępne dla gości na miejscu, bez dodatkowych opłat</li>
+          <li data-pl="Kajak i SUPy dla gości" data-en="Kayak and SUPs for guests">Kajak i SUPy dla gości</li>
           <li data-pl="Las — 1,5 km" data-en="Forest — 1.5 km">Las — 1,5 km</li>
           <li data-pl="Stadnina koni — 1,5 km" data-en="Horse riding stable — 1.5 km">Stadnina koni — 1,5 km</li>
         </ul>
@@ -482,7 +484,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <span data-pl="Marcinowa Wola, Mazury" data-en="Marcinowa Wola, Masuria, Poland">Marcinowa Wola, Mazury</span>
     </div>
     <div class="footer-row">
-      <a href="polityka-prywatnosci.html" data-pl="Polityka prywatności" data-en="Privacy Policy" style="text-decoration:none; color:var(--ink-faint);">Polityka prywatności</a>
+      <a href="polityka-prywatnosci.html" data-pl="Polityka prywatności" data-en="Privacy Policy" style="text-decoration:none; color:rgba(255,255,255,0.85);">Polityka prywatności</a>
       <p class="footer-credit" style="margin:0;">Designed by a human and Claude Code</p>
     </div>
   </footer>
