@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="pl" data-lang="pl">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PL6499J8');</script>
+<!-- End Google Tag Manager -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dom nad Buwełnem</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=Karla:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #FFFFFF;
+    --bg-soft: #F5F4F2;
+    --ink: #131313;
+    --ink-soft: #6E6E6C;
+    --ink-faint: #9C9C9A;
+    --line: #DEDDD9;
+    --card: #FAFAF8;
+    --font-display: 'Instrument Serif', serif;
+    --font-body: 'Inter', sans-serif;
+    --font-warm: 'Karla', sans-serif;
+  }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  html,body{ margin:0; padding:0; background:var(--bg); color:var(--ink); font-family:var(--font-body); overflow-x:clip; }
+  a{ color:inherit; }
+  a:focus-visible, button:focus-visible{ outline:2px solid var(--ink); outline-offset:3px; }
+  img{ max-width:100%; display:block; }
+
+  /* ---------- NAV ---------- */
+  .nav{
+    position:sticky; top:0; z-index:20; background:var(--bg);
+  }
+  .nav-bar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:22px 5vw; border-bottom:1px solid var(--line);
+  }
+  .brand{ display:flex; align-items:center; gap:12px; font-family:var(--font-display); font-style:italic; font-size:1.25rem; text-decoration:none; }
+  .brand img{ height:40px; width:40px; }
+  .links{ display:flex; gap:30px; font-size:0.92rem; }
+  .links a{ text-decoration:none; color:var(--ink-soft); transition:color 0.15s ease; }
+  .links a:hover{ color:var(--ink); }
+  .nav-right{ display:flex; align-items:center; gap:18px; }
+  .lang-toggle{
+    font-family:var(--font-warm); font-size:0.8rem; background:none; border:none; cursor:pointer;
+    letter-spacing:0.04em; color:var(--ink-faint); display:flex; gap:6px; padding:0;
+  }
+  .lang-toggle .active{ color:var(--ink); font-weight:600; }
+  .lang-toggle .sep{ color:var(--line); }
+
+  .menu-toggle{
+    display:none; flex-direction:column; justify-content:center; gap:5px;
+    width:30px; height:30px; background:none; border:none; cursor:pointer; padding:0;
+  }
+  .menu-toggle span{ display:block; width:100%; height:2px; background:var(--ink); transition:transform 0.2s ease, opacity 0.2s ease; }
+  .menu-toggle.open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+  .menu-toggle.open span:nth-child(2){ opacity:0; }
+  .menu-toggle.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+
+  .mobile-nav{
+    display:none; flex-direction:column;
+    border-bottom:1px solid var(--line); padding:6px 5vw 18px;
+  }
+  .mobile-nav.open{ display:flex; }
+  .mobile-nav a{
+    text-decoration:none; color:var(--ink-soft); font-family:var(--font-warm); font-size:1.05rem;
+    padding:16px 0; border-top:1px solid var(--line);
+  }
+  .mobile-nav a:hover{ color:var(--ink); }
+
+  @media (max-width:860px){
+    .links{ display:none; }
+    .menu-toggle{ display:flex; }
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{ position:relative; display:grid; grid-template-columns:0.88fr 1fr; align-items:stretch; min-height:600px; }
+  .hero-text{ display:flex; flex-direction:column; justify-content:center; padding:0 6vw; max-width:560px; }
+  .eyebrow{ font-family:var(--font-warm); font-size:0.78rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-faint); margin:0 0 20px; }
+  .headline{ font-family:var(--font-display); font-weight:400; font-size:clamp(2.8rem, 5.2vw, 4.6rem); line-height:1.05; margin:0 0 24px; letter-spacing:-0.01em; }
+  .headline em{ font-style:italic; color:var(--ink-soft); }
+  .subhead{ font-family:var(--font-warm); font-size:1.1rem; line-height:1.6; color:var(--ink-soft); margin:0 0 28px; max-width:46ch; }
+  .meta{ font-family:var(--font-warm); font-size:0.8rem; color:var(--ink-faint); margin:0 0 36px; letter-spacing:0.08em; text-transform:uppercase; font-weight:500; }
+  .cta-row{ display:flex; flex-direction:column; gap:18px; align-items:flex-start; }
+  .cta{ font-family:var(--font-body); font-weight:600; font-size:0.98rem; background:var(--ink); color:#fff; text-decoration:none; padding:14px 30px; border-radius:2px; transition:background 0.15s ease; }
+  .cta:hover{ background:#2E2E2C; }
+  .contact-inline{ display:flex; gap:20px; font-family:var(--font-warm); font-size:0.8rem; color:var(--ink-soft); flex-wrap:wrap; }
+  .hero-photo{ position:relative; background:linear-gradient(160deg,#ECEBE8 0%,#C7C6C1 55%,#A9A8A3 100%); clip-path:polygon(12% 0%,100% 0%,100% 100%,4% 100%); overflow:hidden; }
+  .hero-photo img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 62%; }
+  .photo-caption{ position:absolute; left:9%; bottom:24px; font-family:var(--font-warm); font-size:0.72rem; color:#fff; letter-spacing:0.04em; background:rgba(19,19,19,0.4); padding:5px 12px; border-radius:2px; z-index:1; }
+  .placeholder-label{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; text-align:center; padding:0 12%; font-family:var(--font-warm); font-size:0.82rem; color:rgba(19,19,19,0.5); line-height:1.5; }
+  .placeholder-label span{ border:1px dashed rgba(19,19,19,0.3); border-radius:4px; padding:14px 20px; background:rgba(255,255,255,0.35); }
+  .divider{ height:1px; width:100%; background:var(--line); }
+  .scroll-cue{ position:absolute; left:6vw; bottom:20px; font-family:var(--font-warm); font-size:0.76rem; color:var(--ink-faint); letter-spacing:0.06em; display:flex; align-items:center; gap:8px; }
+  .scroll-cue::after{ content:''; width:1px; height:22px; background:var(--ink-faint); opacity:0.5; }
+
+  /* ---------- SHARED SECTION STYLES ---------- */
+  section.page{ padding:100px 6vw; max-width:1280px; margin:0 auto; scroll-margin-top:80px; }
+  .section-head{ margin:0 0 48px; max-width:640px; }
+  .section-eyebrow{ font-family:var(--font-warm); font-size:0.78rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-faint); margin:0 0 14px; }
+  .section-title{ font-family:var(--font-display); font-size:clamp(2rem,3.4vw,2.8rem); font-weight:400; margin:0 0 16px; }
+  .section-lede{ font-family:var(--font-warm); font-size:1.05rem; line-height:1.65; color:var(--ink-soft); max-width:60ch; }
+
+  /* ---------- O DOMU ---------- */
+  .about-grid{ display:grid; grid-template-columns:1fr; gap:10px; margin-top:44px; }
+  .about-grid .ph{ background:linear-gradient(160deg,#ECEBE8,#B9B8B4); position:relative; aspect-ratio:16/9; }
+  .about-grid .ph:nth-child(2){ background:linear-gradient(160deg,#E4E3DF,#AEADA9); }
+  .about-grid .ph:nth-child(3){ background:linear-gradient(160deg,#EFEEEA,#C3C2BE); }
+  .about-grid .ph span{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; text-align:center; padding:10%; font-family:var(--font-warm); font-size:0.72rem; color:rgba(19,19,19,0.5); }
+  .about-grid .ph img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; cursor:zoom-in; }
+  .facts{ display:flex; flex-wrap:wrap; gap:10px 28px; margin-top:40px; font-family:var(--font-warm); font-size:0.85rem; color:var(--ink-soft); }
+  .facts li{ list-style:none; padding-left:16px; position:relative; }
+  .facts li::before{ content:'—'; position:absolute; left:0; color:var(--ink-faint); }
+  .facts{ padding:0; margin-left:0; }
+
+  /* ---------- POKOJE (uk\u0142ad pasmowy) ---------- */
+  .room-group-title{ font-family:var(--font-warm); font-size:0.78rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-faint); margin:64px 0 4px; }
+  .room-group-title:first-of-type{ margin-top:48px; }
+  .room-band{ padding:48px 0; border-top:1px solid var(--line); }
+  .room-band-text{ max-width:680px; margin:0 0 28px; }
+  .room-band-photos{ display:grid; grid-template-columns:1fr; gap:10px; }
+  .room-band-photos .ph{ background:linear-gradient(160deg,#ECEBE8,#B9B8B4); position:relative; overflow:hidden; aspect-ratio:16/9; }
+  .room-band-photos .ph:nth-child(2){ background:linear-gradient(160deg,#E4E3DF,#AEADA9); }
+  .room-band-photos .ph:nth-child(3){ background:linear-gradient(160deg,#EFEEEA,#C3C2BE); }
+  .room-band-photos .ph span{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; text-align:center; padding:10%; font-family:var(--font-warm); font-size:0.72rem; color:rgba(19,19,19,0.48); }
+  .room-band-photos .ph img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; cursor:zoom-in; }
+
+  .room-band-text .room-name{ font-family:var(--font-display); font-size:clamp(1.7rem,2.6vw,2.3rem); margin:0 0 16px; font-weight:400; }
+  .room-band-text .room-desc{ font-family:var(--font-warm); font-size:1rem; line-height:1.65; color:var(--ink-soft); margin:0; max-width:42ch; }
+  @media (max-width:860px){
+    .room-band{ padding:36px 0; }
+  }
+
+  /* ---------- OKOLICA ---------- */
+  .okolica-grid{ display:grid; grid-template-columns:1fr 1fr; gap:64px; margin-top:44px; }
+  .okolica-grid.cols-3{ grid-template-columns:1fr 1fr 1fr; }
+  .sport-list{ list-style:none; padding:0; margin:0; }
+  .sport-list li{ font-family:var(--font-warm); font-size:0.98rem; color:var(--ink-soft); padding:14px 2px; border-top:1px solid var(--line); line-height:1.5; }
+  .sport-list li:last-child{ border-bottom:1px solid var(--line); }
+  .history-list{ list-style:none; padding:0; margin:0; }
+  .history-list li{ border-top:1px solid var(--line); padding:16px 2px; }
+  .history-list li:last-child{ border-bottom:1px solid var(--line); }
+  .history-list .h-name{ display:block; font-family:var(--font-display); font-size:1.05rem; color:var(--ink); margin-bottom:4px; }
+  .history-list .h-desc{ font-family:var(--font-warm); font-size:0.88rem; color:var(--ink-soft); line-height:1.5; }
+  .okolica-col h3{ font-family:var(--font-warm); font-size:0.78rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-faint); margin:0 0 22px; font-weight:600; }
+  .okolica-list{ list-style:none; padding:0; margin:0; }
+  .okolica-list li{ border-top:1px solid var(--line); }
+  .okolica-list li:last-child{ border-bottom:1px solid var(--line); }
+  .okolica-list a{ display:flex; justify-content:space-between; align-items:center; text-decoration:none; padding:18px 2px; font-family:var(--font-display); font-size:1.2rem; }
+  .okolica-list a:hover{ color:var(--ink-soft); }
+  .okolica-list a .arrow{ font-family:var(--font-warm); font-size:0.9rem; color:var(--ink-faint); }
+  .okolica-note{ font-family:var(--font-warm); font-size:0.82rem; color:var(--ink-faint); margin-top:16px; line-height:1.5; }
+
+  /* ---------- OCZAMI GOŚCI ---------- */
+  .reviews-carousel{ display:flex; align-items:center; gap:20px; margin-top:44px; }
+  .review-card{ flex:1; max-width:680px; margin:0 auto; text-align:center; min-height:180px; display:flex; flex-direction:column; justify-content:center; }
+  .review-quote{ font-family:var(--font-display); font-style:italic; font-size:clamp(1.15rem,2vw,1.4rem); line-height:1.55; color:var(--ink); margin:0 0 22px; }
+  .review-meta{ display:flex; align-items:center; justify-content:center; gap:10px; font-family:var(--font-warm); font-size:0.85rem; color:var(--ink-soft); flex-wrap:wrap; }
+  .review-name{ font-weight:600; color:var(--ink); }
+  .review-flag{ font-size:1rem; }
+  .review-platform-badge{ font-family:var(--font-warm); font-size:0.66rem; letter-spacing:0.07em; text-transform:uppercase; border:1px solid var(--line); border-radius:999px; padding:3px 11px; color:var(--ink-soft); }
+  .review-rating-booking{ display:inline-flex; align-items:center; justify-content:center; min-width:20px; height:20px; padding:0 5px; background:var(--ink); color:#fff; font-family:var(--font-warm); font-weight:700; font-size:0.72rem; border-radius:4px; }
+  .review-rating-airbnb{ display:inline-flex; align-items:center; gap:3px; font-family:var(--font-warm); font-size:0.8rem; color:var(--ink-soft); }
+  .review-rating-airbnb .star{ color:var(--ink); font-size:0.8rem; letter-spacing:1px; }
+  .rev-nav{ background:none; border:none; font-size:1.5rem; cursor:pointer; color:var(--ink-faint); padding:8px; line-height:1; flex-shrink:0; }
+  .rev-nav:hover{ color:var(--ink); }
+  .review-dots{ display:flex; justify-content:center; gap:8px; margin-top:8px; }
+  .review-dot{ width:7px; height:7px; border-radius:50%; background:var(--line); border:none; cursor:pointer; padding:0; }
+  .review-dot.active{ background:var(--ink); }
+  @media (max-width:640px){ .reviews-carousel{ gap:8px; } .rev-nav{ font-size:1.2rem; padding:4px; } }
+
+  .ai-summary{ max-width:760px; margin:56px auto 0; padding-top:40px; border-top:1px solid var(--line); text-align:left; }
+  .ai-summary-tag{ display:inline-block; font-family:var(--font-warm); font-size:0.66rem; letter-spacing:0.08em; text-transform:uppercase; border:1px solid var(--line); border-radius:999px; padding:3px 10px; color:var(--ink-faint); margin:0 0 16px; }
+  .ai-summary-title{ font-family:var(--font-display); font-weight:400; font-size:clamp(1.3rem,2.2vw,1.6rem); margin:0 0 14px; }
+  .ai-summary-text{ font-family:var(--font-warm); font-size:1rem; line-height:1.7; color:var(--ink-soft); margin:0; max-width:66ch; }
+  .plain-list{ list-style:none; padding:0; margin:0; }
+  .plain-list li{ font-family:var(--font-warm); font-size:0.98rem; color:var(--ink-soft); padding:14px 2px; border-top:1px solid var(--line); }
+  .plain-list li:last-child{ border-bottom:1px solid var(--line); }
+
+  /* ---------- KONTAKT ---------- */
+  .contact-wrap{ display:flex; flex-direction:column; gap:22px; margin-top:44px; }
+  .contact-address{ font-family:var(--font-warm); font-size:0.95rem; color:var(--ink-soft); margin:-6px 0 0; }
+  .contact-social{ display:inline-flex; align-items:center; gap:10px; text-decoration:none; color:var(--ink-soft); font-family:var(--font-warm); font-size:0.95rem; width:fit-content; transition:color 0.15s ease; }
+  .contact-social:hover{ color:var(--ink); }
+  .contact-social svg{ flex-shrink:0; }
+  .contact-map{ width:100%; aspect-ratio:16/9; margin-top:48px; background:var(--bg-soft); overflow:hidden; }
+  @media (max-width:640px){ .contact-map{ aspect-ratio:4/5; } }
+  .contact-line{ font-family:var(--font-display); font-size:clamp(1.6rem,3vw,2.2rem); text-decoration:none; border-bottom:1px solid var(--line); padding-bottom:18px; display:inline-block; width:fit-content; }
+  .contact-line:hover{ color:var(--ink-soft); }
+  .contact-hint{ font-family:var(--font-warm); font-size:0.9rem; color:var(--ink-faint); max-width:50ch; }
+
+  /* ---------- FOOTER ---------- */
+  footer{ border-top:1px solid var(--line); padding:36px 6vw; display:flex; flex-direction:column; gap:16px; font-family:var(--font-warm); font-size:0.78rem; color:var(--ink-faint); }
+  .footer-row{ display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; }
+  .social-link{ color:var(--ink-faint); display:inline-flex; transition:color 0.15s ease; }
+  .social-link:hover{ color:var(--ink); }
+  .footer-socials{ display:flex; gap:14px; }
+  .footer-credit{ margin:0; font-size:0.74rem; color:var(--ink-faint); opacity:0.75; }
+
+  /* ---------- LIGHTBOX ---------- */
+  .lightbox{ position:fixed; inset:0; background:rgba(10,10,10,0.94); z-index:200; display:none; align-items:center; justify-content:center; padding:4vh 4vw; }
+  .lightbox.open{ display:flex; }
+  .lightbox img{ max-width:100%; max-height:100%; object-fit:contain; }
+  .lightbox-close{ position:absolute; top:20px; right:26px; background:none; border:none; color:#fff; font-size:2rem; cursor:pointer; line-height:1; }
+
+  @media (max-width: 860px){
+    .hero{ grid-template-columns:1fr; min-height:auto; }
+    .hero-text{ order:1; padding:48px 7vw 40px; max-width:none; }
+    .hero-photo{ order:2; clip-path:none; min-height:280px; }
+    .scroll-cue{ display:none; }
+    .links{ display:none; }
+    .okolica-grid{ grid-template-columns:1fr; gap:44px; }
+    .okolica-grid.cols-3{ grid-template-columns:1fr; }
+    section.page{ padding:64px 6vw; }
+  }
+</style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PL6499J8"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+  <header class="nav">
+    <div class="nav-bar">
+      <a href="#" class="brand"><img src="images/logo.png" alt=""><span data-pl="Dom nad Buwełnem" data-en="Buwelno Lake House">Dom nad Buwełnem</span></a>
+      <nav class="links">
+        <a href="#pokoje" data-pl="Układ domu" data-en="Home Layout">Układ domu</a>
+        <a href="#okolica" data-pl="Okolica" data-en="Surroundings">Okolica</a>
+        <a href="#opinie" data-pl="Oczami Gości" data-en="Guest Reviews">Oczami Gości</a>
+        <a href="#kontakt" data-pl="Kontakt" data-en="Contact">Kontakt</a>
+      </nav>
+      <div class="nav-right">
+        <button class="lang-toggle" id="langToggle" aria-label="Zmień język strony">
+          <span class="active" data-lang-opt="pl">PL</span><span class="sep">/</span><span data-lang-opt="en">EN</span>
+        </button>
+        <button class="menu-toggle" id="menuToggle" aria-label="Otwórz menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <nav class="mobile-nav" id="mobileNav">
+      <a href="#pokoje" data-pl="Układ domu" data-en="Home Layout">Układ domu</a>
+      <a href="#okolica" data-pl="Okolica" data-en="Surroundings">Okolica</a>
+      <a href="#opinie" data-pl="Oczami Gości" data-en="Guest Reviews">Oczami Gości</a>
+      <a href="#kontakt" data-pl="Kontakt" data-en="Contact">Kontakt</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-text">
+      <p class="eyebrow" data-pl="Marcinowa Wola · Mazury" data-en="Marcinowa Wola · Masuria, Poland">Marcinowa Wola · Mazury</p>
+      <h1 class="headline" data-pl-html="Dom nad <em>Buwełnem</em>" data-en-html="The House on <em>Lake Buwełno</em>">Dom nad <em>Buwełnem</em></h1>
+      <p class="subhead" data-pl="Przytulny i komfortowy dom nad jeziorem, w cichej mazurskiej wsi, z dala od tłumów, ale w wygodnej odległości od lokalnych atrakcji." data-en="A cozy, comfortable house on the lake, in a quiet Masurian village — away from the crowds, yet a short drive from local attractions.">Przytulny i komfortowy dom nad jeziorem, w cichej mazurskiej wsi, z dala od tłumów, ale w wygodnej odległości od lokalnych atrakcji.</p>
+      <p class="meta" data-pl="155 m²  —  4 sypialnie  —  prywatny dostęp do jeziora" data-en="155 m²  —  4 bedrooms  —  private lake access">155 m²  —  4 sypialnie  —  prywatny dostęp do jeziora</p>
+      <div class="cta-row">
+        <a href="#kontakt" class="cta" data-pl="Zapytaj o wolny termin" data-en="Ask about availability">Zapytaj o wolny termin</a>
+        <div class="contact-inline">
+          <span>+48 508 436 148</span>
+          <span>kontakt@domnadbuwelnem.pl</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <img src="images/hero.jpg" alt="Fotele nad jeziorem Buwełno">
+      <div class="photo-caption">Marcinowa Wola, Mazury</div>
+    </div>
+    <div class="scroll-cue" data-pl="przewiń" data-en="scroll">przewiń</div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ---------- O DOMU ---------- -->
+  <section class="page" id="o-domu">
+    <div class="section-head">
+      <p class="section-eyebrow" data-pl="O domu" data-en="The house">O domu</p>
+      <h2 class="section-title" data-pl="Cisza, spokojne jezioro, i szczęśliwe krowy" data-en="Quiet, a calm lake, and happy cows">Cisza, spokojne jezioro, i szczęśliwe krowy</h2>
+      <p class="section-lede" data-pl="Dom łączy skandynawską prostotę z mazurską tradycją. 155 m², dwie kondygnacje, ogromny taras z wygodną sofą oraz miejscem na posiłki, własny, łagodny dostęp do jeziora Buwełno — na wyłączność tylko dla Was." data-en="The house pairs Scandinavian simplicity with Masurian tradition. 155 m² over two floors, a huge terrace with a comfortable sofa and space to dine, and gentle private access to Lake Buwełno — all yours, exclusively.">Dom łączy skandynawską prostotę z mazurską tradycją. 155 m², dwie kondygnacje, ogromny taras z wygodną sofą oraz miejscem na posiłki, własny, łagodny dostęp do jeziora Buwełno — na wyłączność tylko dla Was.</p>
+    </div>
+    <div class="about-grid">
+      <div class="ph large"><img class="zoomable" src="images/lake-aerial.jpg" alt="Jezioro Buwełno z lotu ptaka"></div>
+      <div class="ph"><img class="zoomable" src="images/facade.jpg" alt="Fasada domu nad Buwełnem"></div>
+      <div class="ph"><img class="zoomable" src="images/campfire.jpg" alt="Wieczór przy ognisku"></div>
+    </div>
+    <ul class="facts">
+      <li data-pl="własna plaża i łagodne wejście do wody" data-en="private beach, gentle water entry">własna plaża i łagodne wejście do wody</li>
+      <li data-pl="kajak i SUPy dla gości" data-en="kayak and SUP boards for guests">kajak i SUPy dla gości</li>
+      <li data-pl="miejsce na ognisko" data-en="fire pit area">miejsce na ognisko</li>
+      <li data-pl="w pełni wyposażona kuchnia" data-en="fully equipped kitchen">w pełni wyposażona kuchnia</li>
+      <li data-pl="wygodna jadalnia" data-en="a comfortable dining area">wygodna jadalnia</li>
+      <li data-pl="ogromna sofa i przestrzeń wspólna" data-en="a huge sofa and shared living space">ogromna sofa i przestrzeń wspólna</li>
+    </ul>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ---------- POKOJE ---------- -->
+  <section class="page" id="pokoje">
+    <div class="section-head">
+      <p class="section-eyebrow" data-pl="Układ domu" data-en="Home Layout">Układ domu</p>
+      <h2 class="section-title" data-pl="Wasz dom" data-en="Your House">Wasz dom</h2>
+      <p class="section-lede" data-pl="4 sypialnie i wspólna przestrzeń do spędzania czasu razem. Wybierz pomieszczenie, żeby zobaczyć pełny opis i galerię zdjęć." data-en="4 bedrooms and a shared space for spending time together. Choose a room to see its full description and photo gallery.">4 sypialnie i wspólna przestrzeń do spędzania czasu razem. Wybierz pomieszczenie, żeby zobaczyć pełny opis i galerię zdjęć.</p>
+    </div>
+    <p class="room-group-title" data-pl="Parter" data-en="Ground floor">Parter</p>
+    <div id="bands-parter"></div>
+    <p class="room-group-title" data-pl="Piętro" data-en="Upper floor">Piętro</p>
+    <div id="bands-pietro"></div>
+    <p class="room-group-title" data-pl="Na zewnątrz" data-en="Outside">Na zewnątrz</p>
+    <div id="bands-taras"></div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ---------- OKOLICA ---------- -->
+  <section class="page" id="okolica">
+    <div class="section-head">
+      <p class="section-eyebrow" data-pl="Okolica" data-en="Surroundings">Okolica</p>
+      <h2 class="section-title" data-pl="Marcinowa Wola i dalej" data-en="Marcinowa Wola and beyond">Marcinowa Wola i dalej</h2>
+      <p class="section-lede" data-pl="Cicha wieś między Orzyszem a Giżyckiem, z dala od tłumów, ale w wygodnej odległości od lokalnych atrakcji, aktywności i restauracji." data-en="A quiet village between Orzysz and Giżycko, away from the crowds but a short drive from local attractions, activities and restaurants.">Cicha wieś między Orzyszem a Giżyckiem, z dala od tłumów, ale w wygodnej odległości od lokalnych atrakcji, aktywności i restauracji.</p>
+    </div>
+    <div class="okolica-grid cols-3">
+      <div class="okolica-col">
+        <h3 data-pl="Restauracje" data-en="Restaurants">Restauracje</h3>
+        <ul class="okolica-list">
+          <li><a href="https://pensjonatteresa.pl/" target="_blank" rel="noopener"><span>Pensjonat Teresa <span style="font-family:var(--font-warm);font-size:0.7rem;color:var(--ink-faint);">— na miejscu</span></span><span class="arrow">↗</span></a></li>
+          <li><a href="https://starakuznia.com.pl/" target="_blank" rel="noopener"><span>Stara Kuźnia <span style="font-family:var(--font-warm);font-size:0.7rem;color:var(--ink-faint);">— 2 km</span></span><span class="arrow">↗</span></a></li>
+          <li><a href="https://gospoda.pl/" target="_blank" rel="noopener"><span>Gospoda pod Czarnym Łabędziem <span style="font-family:var(--font-warm);font-size:0.7rem;color:var(--ink-faint);">— Rydzewo</span></span><span class="arrow">↗</span></a></li>
+          <li><a href="https://browar-chmury.app.restimo.com/" target="_blank" rel="noopener"><span>W Chmurach <span style="font-family:var(--font-warm);font-size:0.7rem;color:var(--ink-faint);">— Giżycko</span></span><span class="arrow">↗</span></a></li>
+          <li><a href="https://gosciniec-wydminy.eatbu.com/" target="_blank" rel="noopener"><span>Gościniec Wydminy <span style="font-family:var(--font-warm);font-size:0.7rem;color:var(--ink-faint);">— Wydminy</span></span><span class="arrow">↗</span></a></li>
+          <li><a href="https://karczma-upalty.com/pl/" target="_blank" rel="noopener"><span>Stary Młyn <span style="font-family:var(--font-warm);font-size:0.7rem;color:var(--ink-faint);">— Upałty</span></span><span class="arrow">↗</span></a></li>
+        </ul>
+      </div>
+      <div class="okolica-col">
+        <h3 data-pl="Sport i aktywności" data-en="Sport and activities">Sport i aktywności</h3>
+        <ul class="okolica-list">
+          <li><a href="https://wielkiejeziora.pl/mazurska-petla-rowerowa/" target="_blank" rel="noopener"><span data-pl="Mazurska Pętla Rowerowa" data-en="Masurian Cycling Loop">Mazurska Pętla Rowerowa</span><span class="arrow">↗</span></a></li>
+        </ul>
+        <ul class="plain-list">
+          <li data-pl="Kajak i 2 SUPy — dostępne dla gości na miejscu, bez dodatkowych opłat" data-en="Kayak and 2 SUPs — available to guests on site, at no extra charge">Kajak i 2 SUPy — dostępne dla gości na miejscu, bez dodatkowych opłat</li>
+          <li data-pl="Plac zabaw, boisko i siłownia plenerowa — 500 m" data-en="Playground, sports field and outdoor gym — 500 m">Plac zabaw, boisko i siłownia plenerowa — 500 m</li>
+          <li data-pl="Pętla piesza i biegowa (21 km) wokół jeziora Buwełno" data-en="A 21 km walking and running loop around Lake Buwełno">Pętla piesza i biegowa (21 km) wokół jeziora Buwełno</li>
+          <li data-pl="Trasy biegowe — 6, 10, 15 km oraz trasa półmaratońska (GPX wkrótce do pobrania)" data-en="Running routes — 6, 10, 15 km and a half-marathon route (GPX files coming soon)">Trasy biegowe — 6, 10, 15 km oraz trasa półmaratońska (GPX wkrótce do pobrania)</li>
+          <li data-pl="Las — 2 km" data-en="Forest — 2 km">Las — 2 km</li>
+          <li data-pl="Stadnina koni — 1,5 km" data-en="Horse riding stable — 1.5 km">Stadnina koni — 1,5 km</li>
+        </ul>
+        <p class="okolica-note" data-pl="Plac zabaw, pętlę biegową i stadninę zostawiłem bez linku — nie znalazłem dla nich wiarygodnej, oficjalnej strony. Daj znać, jeśli masz konkretne miejsca/nazwy, a dodam linki." data-en="I've left the playground, running loop and stable without links — I couldn't find a reliable official page for them. Let me know the exact names if you have them, and I'll add links.">Plac zabaw, pętlę biegową i stadninę zostawiłem bez linku — nie znalazłem dla nich wiarygodnej, oficjalnej strony. Daj znać, jeśli masz konkretne miejsca/nazwy, a dodam linki.</p>
+      </div>
+      <div class="okolica-col">
+        <h3 data-pl="Historia" data-en="History">Historia</h3>
+        <ul class="history-list">
+          <li>
+            <span class="h-name">Wilczy Szaniec</span>
+            <span class="h-desc" data-pl="Główna kwatera Hitlera na froncie wschodnim, gdzie w 1944 roku pułkownik von Stauffenberg dokonał nieudanego zamachu na jego życie." data-en="Hitler's Eastern Front military headquarters, where in 1944 Colonel von Stauffenberg carried out a failed assassination attempt on his life.">Główna kwatera Hitlera na froncie wschodnim, gdzie w 1944 roku pułkownik von Stauffenberg dokonał nieudanego zamachu na jego życie.</span>
+          </li>
+          <li>
+            <span class="h-name">Zamek w Reszlu i Święta Lipka</span>
+            <span class="h-desc" data-pl="Gotycki zamek warmińskich biskupów z XIV wieku, a tuż obok — barokowe sanktuarium w Świętej Lipce, słynące z bogato zdobionego wnętrza i zabytkowych organów." data-en="A 14th-century Gothic castle of the Warmian bishops, and nearby — the Baroque sanctuary at Święta Lipka, famous for its richly decorated interior and historic organ.">Gotycki zamek warmińskich biskupów z XIV wieku, a tuż obok — barokowe sanktuarium w Świętej Lipce, słynące z bogato zdobionego wnętrza i zabytkowych organów.</span>
+          </li>
+          <li>
+            <span class="h-name">Twierdza Boyen w Giżycku</span>
+            <span class="h-desc" data-pl="XIX-wieczna pruska twierdza wojskowa, jedna z najlepiej zachowanych tego typu w Polsce." data-en="A 19th-century Prussian military fortress, one of the best-preserved of its kind in Poland.">XIX-wieczna pruska twierdza wojskowa, jedna z najlepiej zachowanych tego typu w Polsce.</span>
+          </li>
+          <li>
+            <span class="h-name">Bunkry w Mamerkach</span>
+            <span class="h-desc" data-pl="Rozległy kompleks bunkrów Naczelnego Dowództwa Wojsk Lądowych III Rzeszy z czasów II wojny światowej." data-en="An extensive WWII bunker complex that served as the headquarters of the German Army High Command (OKH).">Rozległy kompleks bunkrów Naczelnego Dowództwa Wojsk Lądowych III Rzeszy z czasów II wojny światowej.</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ---------- OCZAMI GOŚCI ---------- -->
+  <section class="page" id="opinie">
+    <div class="section-head">
+      <p class="section-eyebrow" data-pl="Oczami Gości" data-en="Through Our Guests' Eyes">Oczami Gości</p>
+      <h2 class="section-title" data-pl="Co mówią goście" data-en="What guests say">Co mówią goście</h2>
+    </div>
+    <div class="reviews-carousel">
+      <button class="rev-nav rev-prev" id="revPrev" aria-label="Poprzednia opinia">←</button>
+      <div class="review-card">
+        <p class="review-quote" id="reviewQuote"></p>
+        <div class="review-meta">
+          <span class="review-name" id="reviewName"></span>
+          <span class="review-flag" id="reviewFlag"></span>
+          <span class="review-country" id="reviewCountry"></span>
+          <span class="review-platform-badge" id="reviewPlatform"></span>
+          <span id="reviewRating"></span>
+        </div>
+      </div>
+      <button class="rev-nav rev-next" id="revNext" aria-label="Następna opinia">→</button>
+    </div>
+    <div class="review-dots" id="reviewDots"></div>
+
+    <div class="ai-summary">
+      <p class="ai-summary-tag" data-pl="Podsumowanie AI" data-en="AI Summary">Podsumowanie AI</p>
+      <h3 class="ai-summary-title" data-pl="Podsumowanie opinii naszych Gości" data-en="Summary of our Guests' Reviews">Podsumowanie opinii naszych Gości</h3>
+      <p class="ai-summary-text" data-pl="Goście doceniają Dom nad Buwełnem za wyjątkowy spokój, wygodę i piękne otoczenie. W opiniach często wyróżniają dużą, świetnie wyposażoną kuchnię oraz przestronną część wspólną, idealną do spędzania czasu razem. Ogromnym atutem jest prywatny dostęp do jeziora, trawiasta plaża z łagodnym i bezpiecznym dla dzieci zejściem do wody, a także dostępny sprzęt rekreacyjny – kajaki oraz SUP-y. Bardzo podoba im się również czysty, przemyślany i przytulny wystrój wnętrz, duży taras i miejsce na ognisko, a całość dopełnia serdeczna i pomocna atmosfera tworzona przez gospodarzy." data-en="Guests praise Dom nad Buwełnem for its exceptional peace and quiet, comfort, and beautiful surroundings. Reviews often highlight the large, well-equipped kitchen and the spacious common area, perfect for spending time together. A major draw is the private access to the lake, the grassy beach with a gentle, child-safe entry into the water, and the recreational equipment available — kayaks and SUP boards. Guests also love the clean, thoughtfully designed, cozy interior, the large terrace and fire pit area, all rounded off by the warm, helpful atmosphere created by the hosts.">Goście doceniają Dom nad Buwełnem za wyjątkowy spokój, wygodę i piękne otoczenie. W opiniach często wyróżniają dużą, świetnie wyposażoną kuchnię oraz przestronną część wspólną, idealną do spędzania czasu razem. Ogromnym atutem jest prywatny dostęp do jeziora, trawiasta plaża z łagodnym i bezpiecznym dla dzieci zejściem do wody, a także dostępny sprzęt rekreacyjny – kajaki oraz SUP-y. Bardzo podoba im się również czysty, przemyślany i przytulny wystrój wnętrz, duży taras i miejsce na ognisko, a całość dopełnia serdeczna i pomocna atmosfera tworzona przez gospodarzy.</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ---------- KONTAKT ---------- -->
+  <section class="page" id="kontakt">
+    <div class="section-head">
+      <p class="section-eyebrow" data-pl="Kontakt" data-en="Contact">Kontakt</p>
+      <h2 class="section-title" data-pl="Zapytaj o wolny termin" data-en="Ask about availability">Zapytaj o wolny termin</h2>
+      <p class="section-lede" data-pl="Rezerwacje telefonicznie lub mailowo." data-en="Bookings by phone or email.">Rezerwacje telefonicznie lub mailowo.</p>
+    </div>
+    <div class="contact-wrap">
+      <a class="contact-line" href="tel:+48508436148">+48 508 436 148</a>
+      <a class="contact-line" href="mailto:kontakt@domnadbuwelnem.pl">kontakt@domnadbuwelnem.pl</a>
+      <p class="contact-address" data-pl="Adres domu: Marcinowa Wola 9C, 11-513 Marcinowa Wola" data-en="House address: Marcinowa Wola 9C, 11-513 Marcinowa Wola, Poland">Adres domu: Marcinowa Wola 9C, 11-513 Marcinowa Wola</p>
+      <a class="contact-social" href="https://www.instagram.com/dom_nad_buwelnem" target="_blank" rel="noopener">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5.5"/>
+          <circle cx="12" cy="12" r="4.2"/>
+          <circle cx="17.3" cy="6.7" r="0.6" fill="currentColor" stroke="none"/>
+        </svg>
+        <span data-pl="Obserwuj nas na Instagramie" data-en="Follow us on Instagram">Obserwuj nas na Instagramie</span>
+      </a>
+      <a class="contact-social" href="https://www.facebook.com/DomNadBuwelnem/" target="_blank" rel="noopener">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5.5"/>
+          <path d="M14.8 6.8h-1.6c-1.4 0-2.3.9-2.3 2.4v1.7h-1.8v2.3h1.8v6h2.5v-6h2l.3-2.3h-2.3v-1.4c0-.5.3-.8.8-.8h1.6z" fill="currentColor" stroke="none"/>
+        </svg>
+        <span data-pl="Obserwuj nas na Facebooku" data-en="Follow us on Facebook">Obserwuj nas na Facebooku</span>
+      </a>
+    </div>
+    <div id="map" class="contact-map" role="application" aria-label="Mapa lokalizacji domu"></div>
+  </section>
+
+  <footer>
+    <div class="footer-row">
+      <span>© 2026 Dom nad Buwełnem</span>
+      <div class="footer-socials">
+        <a href="https://www.instagram.com/dom_nad_buwelnem" target="_blank" rel="noopener" class="social-link" aria-label="Instagram">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5.5"/>
+            <circle cx="12" cy="12" r="4.2"/>
+            <circle cx="17.3" cy="6.7" r="0.6" fill="currentColor" stroke="none"/>
+          </svg>
+        </a>
+        <a href="https://www.facebook.com/DomNadBuwelnem/" target="_blank" rel="noopener" class="social-link" aria-label="Facebook">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5.5"/>
+            <path d="M14.8 6.8h-1.6c-1.4 0-2.3.9-2.3 2.4v1.7h-1.8v2.3h1.8v6h2.5v-6h2l.3-2.3h-2.3v-1.4c0-.5.3-.8.8-.8h1.6z" fill="currentColor" stroke="none"/>
+          </svg>
+        </a>
+      </div>
+      <span data-pl="Marcinowa Wola, Mazury" data-en="Marcinowa Wola, Masuria, Poland">Marcinowa Wola, Mazury</span>
+    </div>
+    <div class="footer-row">
+      <a href="polityka-prywatnosci.html" data-pl="Polityka prywatności" data-en="Privacy Policy" style="text-decoration:none; color:var(--ink-faint);">Polityka prywatności</a>
+      <p class="footer-credit" style="margin:0;">Designed by a human and Claude Code</p>
+    </div>
+  </footer>
+
+  <!-- ---------- LIGHTBOX ---------- -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Zamknij">×</button>
+    <img id="lightboxImg" src="" alt="">
+  </div>
+
+<script>
+const rooms = [
+  { id:'salon', group:'parter', pl:'Salon', en:'Living room',
+    teaserPl:'Duża sofa, fotel i TV — miejsce na wspólne wieczory.',
+    teaserEn:'A large sofa, an armchair and a TV — the spot for evenings together.',
+    descPl:'Przestronny salon z dużą sofą i ekranem — miejsce na wspólne wieczory po dniu spędzonym nad wodą.',
+    descEn:'A spacious living room with a large sofa and a screen — the spot for evenings together after a day spent by the water.',
+    photos:[
+      { src:'images/living-2.jpg' },
+      { src:'images/living-1.jpg' },
+    ] },
+  { id:'jadalnia', group:'parter', pl:'Jadalnia', en:'Dining room',
+    teaserPl:'Stół, przy którym zmieści się cała dziewiątka.',
+    teaserEn:'A table that seats all nine guests.',
+    descPl:'Duży stół, przy którym wygodnie wszyscy się zmieścicie.',
+    descEn:'A large table where everyone comfortably fits.',
+    photos:[ { src:'images/dining-1.jpg', aspect:'4/3', pos:'center 25%' } ] },
+  { id:'kuchnia', group:'parter', pl:'Kuchnia', en:'Kitchen',
+    teaserPl:'Nowoczesna, w pełni wyposażona, z dużą wyspą.',
+    teaserEn:'Modern, fully equipped, with a large island.',
+    descPl:'Nowoczesna, w pełni wyposażona kuchnia z dużą wyspą do wspólnego gotowania.',
+    descEn:'A modern, fully equipped kitchen with a large island for cooking together.',
+    photos:[
+      { src:'images/kitchen-1.jpg', aspect:'4/3' },
+      { src:'images/kitchen-2.jpg', aspect:'4/3', pos:'center 65%' },
+      { src:'images/kitchen-3.jpg', aspect:'4/3', pos:'center 40%' },
+    ] },
+  { id:'sypialnia-parter', group:'parter', pl:'Sypialnia', en:'Bedroom',
+    teaserPl:'Sypialnia na parterze z łóżkiem 140 cm.',
+    teaserEn:'A ground-floor bedroom with a 140 cm bed.',
+    descPl:'Sypialnia na parterze z wygodnym łóżkiem małżeńskim (140 cm).',
+    descEn:'A ground-floor bedroom with a comfortable 140 cm double bed.',
+    photos:[
+      { src:'images/bedroom-ground-1.jpg', aspect:'4/3', pos:'center 40%' },
+      { src:'images/bedroom-ground-2.jpg', aspect:'4/3', pos:'center 40%' },
+    ] },
+  { id:'lazienka-parter', group:'parter', pl:'Łazienka', en:'Bathroom',
+    teaserPl:'Prysznic, umywalka i toaleta.',
+    teaserEn:'Shower, sink and toilet.',
+    descPl:'Łazienka na parterze z prysznicem, umywalką i toaletą.',
+    descEn:'A ground-floor bathroom with a shower, sink and toilet.',
+    photo1:'images/bathroom-ground-2.jpg', photo2:'images/bathroom-ground-3.jpg', photo3:'images/bathroom-ground-1.jpg' },
+  { id:'master', group:'pietro', pl:'Sypialnia Master', en:'Master Bedroom',
+    teaserPl:'Duże łóżko (180 cm), na piętrze.',
+    teaserEn:'A large 180 cm bed, upstairs.',
+    descPl:'Przestronna sypialnia na piętrze z dużym łóżkiem (180 cm).',
+    descEn:'A spacious upstairs bedroom with a large 180 cm bed.',
+    photo1:'images/master-1.jpg', photo2:'images/master-3.jpg', photo3:'images/master-2.jpg' },
+  { id:'goscinna', group:'pietro', pl:'Sypialnia gościnna', en:'Guest bedroom',
+    teaserPl:'Przytulny pokój z łóżkiem 140 cm.',
+    teaserEn:'A cozy room with a 140 cm bed.',
+    descPl:'Przytulna sypialnia gościnna z łóżkiem 140 cm.',
+    descEn:'A cozy guest bedroom with a 140 cm bed.',
+    photo1:'images/guest-1.jpg', photo2:'images/guest-3.jpg', photo3:'images/guest-2.jpg' },
+  { id:'dziecieca', group:'pietro', pl:'Sypialnia dziecięca', en:"Children's Bedroom",
+    teaserPl:'Dwa łóżka — 90 i 120 cm.',
+    teaserEn:'Two beds — 90 and 120 cm.',
+    descPl:'Sypialnia dziecięca z dwoma łóżkami (90 i 120 cm) i regałem pełnym fantastycznych książek.',
+    descEn:"A children's bedroom with two beds (90 and 120 cm) and a bookshelf full of great books.",
+    photo1:'images/children-2.jpg', photo2:'images/children-1.jpg', photo3:'images/children-3.jpg' },
+  { id:'strefa-gier', group:'pietro', pl:'Strefa zabawy', en:'Play Zone',
+    teaserPl:'Piłkarzyki — ulubione miejsce dzieci.',
+    teaserEn:"A foosball table — the kids' favorite spot.",
+    descPl:'Strefa zabawy na piętrze z piłkarzykami — ulubione miejsce dzieci.',
+    descEn:"An upstairs play zone with a foosball table — the kids' favorite spot.",
+    photos:[ { src:'images/playzone.jpg', aspect:'4/3', pos:'center 45%' } ] },
+  { id:'lazienka-pietro', group:'pietro', pl:'Łazienka', en:'Bathroom',
+    teaserPl:'Wanna i prysznic.',
+    teaserEn:'Bathtub and shower.',
+    descPl:'Łazienka na piętrze z wanną i prysznicem.',
+    descEn:'An upstairs bathroom with a bathtub and shower.',
+    photo1:'images/bathroom-upper-3.jpg', photo2:'images/bathroom-upper-2.jpg', photo3:'images/bathroom-upper-1.jpg' },
+  { id:'taras', group:'taras', pl:'Taras, łąka i jezioro', en:'Terrace, meadow and lake',
+    teaserPl:'70 m² z widokiem na jezioro, ognisko, kajak i SUP.',
+    teaserEn:'70 m² with a lake view, fire pit, kayak and SUP.',
+    descPl:'80 m² tarasu z widokiem na jezioro, kwietna łąka, która prowadzi Cię nad jezioro, a nad wodą miejsce na ognisko oraz kajak i SUPy do Waszej dyspozycji.',
+    descEn:'An 80 m² terrace with a lake view, a flowering meadow leading down to the lake, and by the water a fire pit area plus a kayak and SUP boards at your disposal.',
+    photos:[
+      { src:'images/terrace-night.jpg', aspect:'4/3' },
+      { src:'images/terrace-table.jpg', aspect:'4/3', pos:'center 40%' },
+      { src:'images/terrace-sofa.jpg', aspect:'4/3', pos:'center 35%' },
+      { src:'images/terrace-lakeside-table.jpg', aspect:'4/3' },
+      { src:'images/meadow-walk.jpg', aspect:'4/3', pos:'center 80%' },
+      { src:'images/meadow-flowers.jpg', aspect:'4/3' },
+      { src:'images/meadow-storks.jpg', aspect:'16/9', pos:'center 60%' },
+      { src:'images/aerial-house-lake.jpg', aspect:'16/9' },
+      { src:'images/aerial-lake-wide.jpg', aspect:'16/9' },
+      { src:'images/lake-sunrise.jpg', aspect:'4/3' },
+      { src:'images/lake-fishing.jpg', aspect:'4/3' },
+      { src:'images/lake-sup.jpg', aspect:'4/3' },
+      { src:'images/lake-kids-sup.jpg', aspect:'16/9' },
+    ] },
+];
+
+const lang = () => document.documentElement.dataset.lang;
+function photoSlotHTML(src, altText, placeholderText, fit, aspect, pos){
+  if(!src) return `<div class="ph"><span>${placeholderText}</span></div>`;
+  const aspectStyle = aspect ? `aspect-ratio:${aspect};` : '';
+  const posStyle = pos ? `object-position:${pos};` : '';
+  if(fit === 'contain'){
+    return `<div class="ph" style="background:var(--card);${aspectStyle}"><img class="zoomable" src="${src}" alt="${altText}" style="object-fit:contain;"></div>`;
+  }
+  return `<div class="ph" style="${aspectStyle}"><img class="zoomable" src="${src}" alt="${altText}" style="${posStyle}"></div>`;
+}
+
+function roomBandHTML(r){
+  const name = lang()==='pl' ? r.pl : r.en;
+  const desc = lang()==='pl' ? r.descPl : r.descEn;
+  const shot = lang()==='pl' ? 'zdjęcie' : 'photo';
+  let photosHtml;
+  if(r.photos && r.photos.length){
+    photosHtml = r.photos.map((p, i) =>
+      photoSlotHTML(p.src, name, `${shot} ${i+1}: ${name.toLowerCase()}`, p.fit, p.aspect, p.pos)
+    ).join('');
+  } else {
+    photosHtml = [1,2,3].map(n =>
+      photoSlotHTML(r['photo'+n], name, `${shot} ${n}: ${name.toLowerCase()}`, r['photo'+n+'Fit'], r['photo'+n+'Aspect'], r['photo'+n+'Pos'])
+    ).join('');
+  }
+  return `<div class="room-band">
+    <div class="room-band-text">
+      <h3 class="room-name">${name}</h3>
+      <p class="room-desc">${desc}</p>
+    </div>
+    <div class="room-band-photos">
+      ${photosHtml}
+    </div>
+  </div>`;
+}
+
+function renderBands(){
+  document.getElementById('bands-parter').innerHTML = rooms.filter(r=>r.group==='parter').map(roomBandHTML).join('');
+  document.getElementById('bands-pietro').innerHTML = rooms.filter(r=>r.group==='pietro').map(roomBandHTML).join('');
+  document.getElementById('bands-taras').innerHTML = rooms.filter(r=>r.group==='taras').map(roomBandHTML).join('');
+}
+
+/* ---------- i18n ---------- */
+function applyLang(){
+  const l = lang();
+  document.documentElement.lang = l;
+  document.querySelectorAll('[data-pl]').forEach(el=>{
+    if(el.dataset.pl !== undefined && el.children.length===0){
+      el.textContent = l==='pl' ? el.dataset.pl : el.dataset.en;
+    }
+  });
+  document.querySelectorAll('[data-pl-html]').forEach(el=>{
+    el.innerHTML = l==='pl' ? el.dataset.plHtml : el.dataset.enHtml;
+  });
+  document.querySelectorAll('[data-lang-opt]').forEach(el=>{
+    el.classList.toggle('active', el.dataset.langOpt === l);
+  });
+  renderBands();
+  if (typeof renderReview === 'function') renderReview();
+}
+document.getElementById('langToggle').addEventListener('click', ()=>{
+  document.documentElement.dataset.lang = lang()==='pl' ? 'en' : 'pl';
+  applyLang();
+});
+renderBands();
+
+/* ---------- MENU MOBILNE ---------- */
+(function(){
+  const menuToggle = document.getElementById('menuToggle');
+  const mobileNav = document.getElementById('mobileNav');
+  function closeMenu(){
+    mobileNav.classList.remove('open');
+    menuToggle.classList.remove('open');
+    menuToggle.setAttribute('aria-expanded', 'false');
+  }
+  menuToggle.addEventListener('click', ()=>{
+    const isOpen = mobileNav.classList.toggle('open');
+    menuToggle.classList.toggle('open', isOpen);
+    menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+  mobileNav.querySelectorAll('a').forEach(a=>{
+    a.addEventListener('click', closeMenu);
+  });
+})();
+
+/* ---------- OCZAMI GOŚCI ---------- */
+const reviews = [
+  { name:'Agnieszka', countryPl:'Polska', countryEn:'Poland', flag:'🇵🇱', platform:'Booking.com',
+    quotePl:'Wspaniale wyposażony, zadbany, przestronny dom, dopracowane ważne szczegóły, np. moskitiery w oknach. Dziękujemy gospodarzowi, panu Jakubowi za wszystkie cenne podpowiedzi ;)',
+    quoteEn:'A wonderfully equipped, well-kept, spacious house, with all the important details taken care of — like mosquito screens on the windows. Thank you to our host, Jakub, for all the valuable tips ;)' },
+  { name:'Markus', countryPl:'Niemcy', countryEn:'Germany', flag:'🇩🇪', platform:'Booking.com',
+    quotePl:'We would love to come back again, it was an unforgettable stay. Incredibly good. A very beautiful house, with a lovely garden and wonderful nature to admire. Very relaxing.',
+    quoteEn:'We would love to come back again, it was an unforgettable stay. Incredibly good. A very beautiful house, with a lovely garden and wonderful nature to admire. Very relaxing.' },
+  { name:'Piotr', countryPl:'Polska', countryEn:'Poland', flag:'🇵🇱', platform:'Booking.com',
+    quotePl:'Bardzo udany pobyt. Wspaniałe miejsce na urlop rodzinny, nawet, gdy pogoda jest w kratkę. Duża przestrzeń dzienna w domu, który był dobrze wyposażony i fajnie urządzony, dostęp do jeziora z możliwością pływania kajakiem dodatkowo podkreśliły walory tego miejsca. Jeśli ktoś szuka spokojnego miejsca na rodzinny wypoczynek, cieszą go wizyty bocianów na tarasie i pasące się na sąsiednich łąkach krowy, to Dom nad Buwełnem jest idealnym miejscem dla niego.',
+    quoteEn:"A very successful stay. A wonderful spot for a family holiday, even when the weather isn't perfect. The large living space in the house, which was well equipped and nicely furnished, plus lake access with kayaking, only added to the appeal. If you're looking for a peaceful place for a family getaway — where storks visiting the terrace and cows grazing in the neighboring meadows bring you joy — Dom nad Buwełnem is the perfect spot." },
+  { name:'Jonathan', countryPl:'USA', countryEn:'USA', flag:'🇺🇸', platform:'Airbnb',
+    quotePl:"We really enjoyed the lake house and its beautiful location made it even more special. There was never a shortage of things to do, and we found ourselves wanting to spend more and more time there. I would definitely recommend this amazing location if you're looking for a quiet place with a beautiful lake and pristine lake to swim and boat in! The home had plenty of room for all of us, and we made so many great memories here. I highly recommend going to the tank museum nearby and seeing the local towns and experiencing the delicious food and drinks. Thank you so much for hosting us!",
+    quoteEn:"We really enjoyed the lake house and its beautiful location made it even more special. There was never a shortage of things to do, and we found ourselves wanting to spend more and more time there. I would definitely recommend this amazing location if you're looking for a quiet place with a beautiful lake and pristine lake to swim and boat in! The home had plenty of room for all of us, and we made so many great memories here. I highly recommend going to the tank museum nearby and seeing the local towns and experiencing the delicious food and drinks. Thank you so much for hosting us!" },
+  { name:'Stephanie', countryPl:'Francja', countryEn:'France', flag:'🇫🇷', platform:'Airbnb',
+    quotePl:'6 out of 5 stars for the home offered by Zuzanna. High-quality amenities, a peaceful and beautiful setting, and a house tastefully decorated with top-notch equipment. In our opinion, a true Airbnb gem.',
+    quoteEn:'6 out of 5 stars for the home offered by Zuzanna. High-quality amenities, a peaceful and beautiful setting, and a house tastefully decorated with top-notch equipment. In our opinion, a true Airbnb gem.' },
+  { name:'Kiba', countryPl:'Turcja', countryEn:'Turkey', flag:'🇹🇷', platform:'Airbnb',
+    quotePl:"We had an absolutely amazing stay - truly a 10/10 experience. The house is beautifully equipped, especially the kitchen, which has absolutely everything you could possibly need. It's clear the hosts have thought of every little detail to make guests feel comfortable and at home. The views are just stunning, waking up and seeing cows peacefully grazing outside the window was such a unique and relaxing experience. The lake nearby is incredible as well. We spent our days kayaking, grilling by the water, and just relaxing on the lovely wooden chairs, it was the perfect escape. The hosts are wonderful people - very kind, responsive, and always available if you need anything. Communication was quick and easy throughout our stay. We were a group of 9 (including a baby), and everyone loved it. It's a perfect spot if you're looking for a mix of a city break and peaceful time in nature. We spent our Majówka here and couldn't have asked for a better place. Highly recommend!",
+    quoteEn:"We had an absolutely amazing stay - truly a 10/10 experience. The house is beautifully equipped, especially the kitchen, which has absolutely everything you could possibly need. It's clear the hosts have thought of every little detail to make guests feel comfortable and at home. The views are just stunning, waking up and seeing cows peacefully grazing outside the window was such a unique and relaxing experience. The lake nearby is incredible as well. We spent our days kayaking, grilling by the water, and just relaxing on the lovely wooden chairs, it was the perfect escape. The hosts are wonderful people - very kind, responsive, and always available if you need anything. Communication was quick and easy throughout our stay. We were a group of 9 (including a baby), and everyone loved it. It's a perfect spot if you're looking for a mix of a city break and peaceful time in nature. We spent our Majówka here and couldn't have asked for a better place. Highly recommend!" },
+];
+
+let reviewIndex = 0;
+
+function ratingBadgeHTML(platform){
+  if(platform === 'Booking.com'){
+    return '<span class="review-rating-booking" aria-label="Ocena 10">10</span>';
+  }
+  return '<span class="review-rating-airbnb" aria-label="Ocena 5 gwiazdek"><span class="star">★★★★★</span></span>';
+}
+
+function renderReview(){
+  const r = reviews[reviewIndex];
+  const l = lang();
+  document.getElementById('reviewQuote').textContent = '“' + (l==='pl' ? r.quotePl : r.quoteEn) + '”';
+  document.getElementById('reviewName').textContent = r.name + ',';
+  document.getElementById('reviewFlag').textContent = r.flag;
+  document.getElementById('reviewCountry').textContent = (l==='pl' ? r.countryPl : r.countryEn) + ' ·';
+  document.getElementById('reviewPlatform').textContent = r.platform;
+  document.getElementById('reviewRating').innerHTML = ratingBadgeHTML(r.platform);
+  document.querySelectorAll('.review-dot').forEach((d,i)=> d.classList.toggle('active', i===reviewIndex));
+}
+function renderDots(){
+  document.getElementById('reviewDots').innerHTML = reviews.map((_,i)=>
+    `<button class="review-dot" data-i="${i}" aria-label="Opinia ${i+1}"></button>`).join('');
+  document.querySelectorAll('.review-dot').forEach(btn=>{
+    btn.addEventListener('click', ()=>{ reviewIndex = parseInt(btn.dataset.i); renderReview(); });
+  });
+}
+document.getElementById('revPrev').addEventListener('click', ()=>{
+  reviewIndex = (reviewIndex - 1 + reviews.length) % reviews.length; renderReview();
+});
+document.getElementById('revNext').addEventListener('click', ()=>{
+  reviewIndex = (reviewIndex + 1) % reviews.length; renderReview();
+});
+renderDots();
+renderReview();
+
+/* ---------- SWIPE (Oczami Gości) ---------- */
+(function(){
+  const carousel = document.querySelector('.reviews-carousel');
+  if(!carousel) return;
+  let touchStartX = 0;
+  carousel.addEventListener('touchstart', e=>{
+    touchStartX = e.changedTouches[0].screenX;
+  }, { passive:true });
+  carousel.addEventListener('touchend', e=>{
+    const touchEndX = e.changedTouches[0].screenX;
+    const diff = touchStartX - touchEndX;
+    const threshold = 40;
+    if(Math.abs(diff) < threshold) return;
+    if(diff > 0){
+      reviewIndex = (reviewIndex + 1) % reviews.length;
+    } else {
+      reviewIndex = (reviewIndex - 1 + reviews.length) % reviews.length;
+    }
+    renderReview();
+  }, { passive:true });
+})();
+
+/* ---------- LIGHTBOX ---------- */
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightboxImg');
+document.addEventListener('click', e=>{
+  const target = e.target.closest('.zoomable');
+  if(target){
+    lightboxImg.src = target.src;
+    lightboxImg.alt = target.alt || '';
+    lightbox.classList.add('open');
+  }
+});
+document.getElementById('lightboxClose').addEventListener('click', ()=> lightbox.classList.remove('open'));
+lightbox.addEventListener('click', e=>{ if(e.target === lightbox) lightbox.classList.remove('open'); });
+document.addEventListener('keydown', e=>{ if(e.key === 'Escape') lightbox.classList.remove('open'); });
+
+/* ---------- MAPA GOOGLE ---------- */
+const HOUSE_ADDRESS = 'Marcinowa Wola 9C, 11-513 Marcinowa Wola, Polska';
+
+const mapMonoStyles = [
+  { elementType: 'geometry', stylers: [{ color: '#f5f4f2' }] },
+  { elementType: 'labels.icon', stylers: [{ visibility: 'off' }] },
+  { elementType: 'labels.text.fill', stylers: [{ color: '#6e6e6c' }] },
+  { elementType: 'labels.text.stroke', stylers: [{ color: '#ffffff' }] },
+  { featureType: 'administrative', elementType: 'geometry.stroke', stylers: [{ color: '#c9c8c4' }] },
+  { featureType: 'landscape', elementType: 'geometry', stylers: [{ color: '#f5f4f2' }] },
+  { featureType: 'poi', stylers: [{ visibility: 'off' }] },
+  { featureType: 'poi.park', elementType: 'geometry', stylers: [{ color: '#e5e4e0' }] },
+  { featureType: 'road', elementType: 'geometry', stylers: [{ color: '#ffffff' }] },
+  { featureType: 'road', elementType: 'geometry.stroke', stylers: [{ color: '#dedcd9' }] },
+  { featureType: 'road.highway', elementType: 'geometry', stylers: [{ color: '#e9e8e4' }] },
+  { featureType: 'road.arterial', elementType: 'labels.text.fill', stylers: [{ color: '#9c9c9a' }] },
+  { featureType: 'transit', stylers: [{ visibility: 'off' }] },
+  { featureType: 'water', elementType: 'geometry', stylers: [{ color: '#c7c6c1' }] },
+  { featureType: 'water', elementType: 'labels.text.fill', stylers: [{ color: '#9c9c9a' }] },
+];
+
+function initMap(){
+  const mapDiv = document.getElementById('map');
+  if(!mapDiv) return;
+
+  const map = new google.maps.Map(mapDiv, {
+    zoom: 14,
+    center: { lat: 53.95, lng: 21.85 }, // przybliżony środek Mazur, podmieniany po geokodowaniu
+    styles: mapMonoStyles,
+    mapTypeControl: false,
+    streetViewControl: false,
+    fullscreenControl: true,
+    zoomControl: true,
+  });
+
+  const geocoder = new google.maps.Geocoder();
+  geocoder.geocode({ address: HOUSE_ADDRESS }, (results, status) => {
+    if(status !== 'OK' || !results[0]){
+      console.warn('Geokodowanie adresu nie powiodło się:', status);
+      return;
+    }
+    const loc = results[0].geometry.location;
+    map.setCenter(loc);
+
+    const marker = new google.maps.Marker({
+      position: loc,
+      map: map,
+      title: 'Dom nad Buwełnem',
+      icon: {
+        url: 'images/logo.png',
+        scaledSize: new google.maps.Size(46, 46),
+      },
+    });
+
+    const mapsUrl = 'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(HOUSE_ADDRESS);
+
+    function infoContent(){
+      const l = lang();
+      return `
+        <div style="font-family:var(--font-warm,sans-serif); max-width:230px; padding:2px;">
+          <p style="font-family:var(--font-display,serif); font-size:1.15rem; margin:0 0 6px; color:#131313;">Dom nad Buwełnem</p>
+          <p style="font-size:0.82rem; color:#6E6E6C; margin:0 0 14px; line-height:1.4;">${l==='pl' ? 'Marcinowa Wola 9C, 11-513 Marcinowa Wola' : 'Marcinowa Wola 9C, 11-513 Marcinowa Wola, Poland'}</p>
+          <a href="${mapsUrl}" target="_blank" rel="noopener" class="cta" style="display:inline-block; font-size:0.82rem; padding:9px 16px;">${l==='pl' ? 'Otwórz nawigację w Google Maps' : 'Open directions in Google Maps'}</a>
+        </div>`;
+    }
+
+    const infoWindow = new google.maps.InfoWindow({ content: infoContent() });
+    marker.addListener('click', () => { infoWindow.setContent(infoContent()); infoWindow.open(map, marker); });
+
+    // otwórz od razu po załadowaniu
+    infoWindow.open(map, marker);
+  });
+}
+window.initMap = initMap;
+</script>
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9NJKSxmTCYO_xLswpijMT2-rHq9iOQqI&callback=initMap"></script>
+
+</body>
+</html>
