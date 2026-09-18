@@ -141,11 +141,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .count-3 .ph{ height:100%; }
 
   /* ---- count-many: hero + scrollable filmstrip ---- */
-  .count-many .hero-shot{ aspect-ratio:21/10; margin-bottom:10px; }
-  .count-many .filmstrip{ display:flex; gap:10px; overflow-x:auto; padding-bottom:10px; -webkit-overflow-scrolling:touch; scroll-snap-type:x proximity; }
+  .count-many .hero-shot{ aspect-ratio:21/10; margin-bottom:10px; position:relative; }
+  .count-many .hero-shot .ph{ position:absolute; inset:0; width:100%; height:100%; }
+  .count-many .filmstrip{ display:flex; gap:10px; overflow-x:auto; padding-bottom:10px; -webkit-overflow-scrolling:touch; scroll-snap-type:x proximity; scroll-behavior:smooth; }
   .count-many .filmstrip .ph{ flex:0 0 220px; aspect-ratio:4/3; scroll-snap-align:start; }
   .count-many .filmstrip::-webkit-scrollbar{ height:5px; }
   .count-many .filmstrip::-webkit-scrollbar-thumb{ background:var(--line); border-radius:4px; }
+  .count-many{ position:relative; }
+  .filmstrip-wrap{ position:relative; }
+  .film-nav{ position:absolute; top:0; bottom:10px; width:48px; background:none; border:none; cursor:pointer; color:var(--ink); font-size:1.3rem; z-index:5; display:flex; align-items:center; justify-content:center; transition:opacity 0.15s ease; opacity:0.55; }
+  .film-nav:hover{ opacity:1; }
+  .film-nav.prev{ left:0; background:linear-gradient(90deg, var(--bg) 30%, transparent); justify-content:flex-start; }
+  .film-nav.next{ right:0; background:linear-gradient(270deg, var(--bg) 30%, transparent); justify-content:flex-end; }
 
   .room-band-text .room-name{ font-family:var(--font-display); font-size:clamp(1.7rem,2.6vw,2.3rem); margin:0 0 16px; font-weight:400; }
   .room-band-text .room-desc{ font-family:var(--font-warm); font-size:1rem; line-height:1.65; color:var(--ink-soft); margin:0; max-width:42ch; }
@@ -179,8 +186,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .okolica-note{ font-family:var(--font-warm); font-size:0.82rem; color:var(--ink-faint); margin-top:16px; line-height:1.5; }
 
   /* ---------- OCZAMI GOŚCI ---------- */
-  .reviews-carousel{ display:flex; align-items:center; gap:20px; margin-top:44px; }
-  .review-card{ flex:1; max-width:680px; margin:0 auto; text-align:center; min-height:180px; display:flex; flex-direction:column; justify-content:center; }
+  .reviews-carousel{ display:flex; align-items:stretch; gap:0; margin-top:44px; }
+  .review-card{ flex:0 1 680px; max-width:680px; margin:0 auto; text-align:center; min-height:180px; display:flex; flex-direction:column; justify-content:center; }
   .review-quote{ font-family:var(--font-display); font-style:italic; font-size:clamp(1.15rem,2vw,1.4rem); line-height:1.55; color:var(--ink); margin:0 0 22px; }
   .review-meta{ display:flex; align-items:center; justify-content:center; gap:10px; font-family:var(--font-warm); font-size:0.85rem; color:var(--ink-soft); flex-wrap:wrap; }
   .review-name{ font-weight:600; color:var(--ink); }
@@ -189,8 +196,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .review-rating-booking{ display:inline-flex; align-items:center; justify-content:center; min-width:20px; height:20px; padding:0 5px; background:var(--ink); color:#fff; font-family:var(--font-warm); font-weight:700; font-size:0.72rem; border-radius:4px; }
   .review-rating-airbnb{ display:inline-flex; align-items:center; gap:3px; font-family:var(--font-warm); font-size:0.8rem; color:var(--ink-soft); }
   .review-rating-airbnb .star{ color:var(--ink); font-size:0.8rem; letter-spacing:1px; }
-  .rev-nav{ background:none; border:none; font-size:1.5rem; cursor:pointer; color:var(--ink-faint); padding:8px; line-height:1; flex-shrink:0; }
-  .rev-nav:hover{ color:var(--ink); }
+  .rev-nav{ background:none; border:none; font-size:1.5rem; cursor:pointer; color:var(--ink-faint); padding:8px; line-height:1; flex:1 1 auto; display:flex; align-items:center; justify-content:center; transition:color 0.15s ease, background 0.15s ease; }
+  .rev-nav:hover{ color:var(--ink); background:var(--bg-soft); }
   .review-dots{ display:flex; justify-content:center; gap:8px; margin-top:8px; }
   .review-dot{ width:7px; height:7px; border-radius:50%; background:var(--line); border:none; cursor:pointer; padding:0; }
   .review-dot.active{ background:var(--ink); }
@@ -301,7 +308,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <section class="page" id="o-domu">
     <div class="section-head">
       <p class="section-eyebrow" data-pl="O domu" data-en="The house">O domu</p>
-      <h2 class="section-title" data-pl="Cisza, spokojne jezioro, i szczęśliwe krowy" data-en="Quiet, a calm lake, and happy cows">Cisza, spokojne jezioro, i szczęśliwe krowy</h2>
+      <h2 class="section-title" data-pl="Cisza, spokojne jezioro, i kwietna łąka" data-en="Quiet, a calm lake, and a flowering meadow">Cisza, spokojne jezioro, i kwietna łąka</h2>
       <p class="section-lede" data-pl="Dom łączy skandynawską prostotę z mazurską tradycją. 155 m², dwie kondygnacje, ogromny taras z wygodną sofą oraz miejscem na posiłki, własny, łagodny dostęp do jeziora Buwełno — na wyłączność tylko dla Was." data-en="The house pairs Scandinavian simplicity with Masurian tradition. 155 m² over two floors, a huge terrace with a comfortable sofa and space to dine, and gentle private access to Lake Buwełno — all yours, exclusively.">Dom łączy skandynawską prostotę z mazurską tradycją. 155 m², dwie kondygnacje, ogromny taras z wygodną sofą oraz miejscem na posiłki, własny, łagodny dostęp do jeziora Buwełno — na wyłączność tylko dla Was.</p>
     </div>
     <div class="about-grid count-3">
@@ -504,7 +511,7 @@ const rooms = [
     teaserEn:'A table that seats all nine guests.',
     descPl:'Duży stół, przy którym wygodnie wszyscy się zmieścicie.',
     descEn:'A large table where everyone comfortably fits.',
-    photos:[ { src:'images/dining-1.jpg', aspect:'4/3', pos:'center 25%' } ] },
+    photos:[ { src:'images/dining-1.jpg', pos:'center 60%' } ] },
   { id:'kuchnia', group:'parter', pl:'Kuchnia', en:'Kitchen',
     teaserPl:'Nowoczesna, w pełni wyposażona, z dużą wyspą.',
     teaserEn:'Modern, fully equipped, with a large island.',
@@ -513,7 +520,7 @@ const rooms = [
     photos:[
       { src:'images/kitchen-1.jpg', aspect:'4/3' },
       { src:'images/kitchen-2.jpg', aspect:'4/3', pos:'center 65%' },
-      { src:'images/kitchen-3.jpg', aspect:'4/3', pos:'center 40%' },
+      { src:'images/kitchen-3.jpg', aspect:'4/3', pos:'center 60%' },
     ] },
   { id:'sypialnia-parter', group:'parter', pl:'Sypialnia', en:'Bedroom',
     teaserPl:'Sypialnia na parterze z łóżkiem 140 cm.',
@@ -547,13 +554,13 @@ const rooms = [
     teaserEn:'Two beds — 90 and 120 cm.',
     descPl:'Sypialnia dziecięca z dwoma łóżkami (90 i 120 cm) i regałem pełnym fantastycznych książek.',
     descEn:"A children's bedroom with two beds (90 and 120 cm) and a bookshelf full of great books.",
-    photo1:'images/children-2.jpg', photo2:'images/children-1.jpg', photo3:'images/children-3.jpg' },
+    photo1:'images/children-2.jpg', photo2:'images/children-1.jpg', photo2Pos:'center 88%', photo3:'images/children-3.jpg' },
   { id:'strefa-gier', group:'pietro', pl:'Strefa zabawy', en:'Play Zone',
     teaserPl:'Piłkarzyki — ulubione miejsce dzieci.',
     teaserEn:"A foosball table — the kids' favorite spot.",
     descPl:'Strefa zabawy na piętrze z piłkarzykami — ulubione miejsce dzieci.',
     descEn:"An upstairs play zone with a foosball table — the kids' favorite spot.",
-    photos:[ { src:'images/playzone.jpg', aspect:'4/3', pos:'center 45%' } ] },
+    photos:[ { src:'images/playzone.jpg', pos:'center 75%' } ] },
   { id:'lazienka-pietro', group:'pietro', pl:'Łazienka', en:'Bathroom',
     teaserPl:'Wanna i prysznic.',
     teaserEn:'Bathtub and shower.',
@@ -604,8 +611,13 @@ function photosBlockHTML(photos, name, shot){
   }
   if(count >= 6){
     const [hero, ...rest] = photos;
+    const filmId = 'film-' + r.id;
     const heroHtml = `<div class="hero-shot">${photoSlotHTML(hero.src, name, `${shot} 1: ${name.toLowerCase()}`, hero.fit, hero.pos)}</div>`;
-    const filmHtml = `<div class="filmstrip">${rest.map((p,i)=>photoSlotHTML(p.src, name, `${shot} ${i+2}: ${name.toLowerCase()}`, p.fit, p.pos)).join('')}</div>`;
+    const filmHtml = `<div class="filmstrip-wrap">
+      <button class="film-nav prev" data-film="${filmId}" aria-label="${lang()==='pl' ? 'Poprzednie zdjęcia' : 'Previous photos'}">←</button>
+      <div class="filmstrip" id="${filmId}">${rest.map((p,i)=>photoSlotHTML(p.src, name, `${shot} ${i+2}: ${name.toLowerCase()}`, p.fit, p.pos)).join('')}</div>
+      <button class="film-nav next" data-film="${filmId}" aria-label="${lang()==='pl' ? 'Następne zdjęcia' : 'Next photos'}">→</button>
+    </div>`;
     return `<div class="room-band-photos count-many">${heroHtml}${filmHtml}</div>`;
   }
   const cls = 'count-' + Math.min(count, 3);
@@ -770,6 +782,30 @@ document.addEventListener('click', e=>{
 document.getElementById('lightboxClose').addEventListener('click', ()=> lightbox.classList.remove('open'));
 lightbox.addEventListener('click', e=>{ if(e.target === lightbox) lightbox.classList.remove('open'); });
 document.addEventListener('keydown', e=>{ if(e.key === 'Escape') lightbox.classList.remove('open'); });
+
+/* ---------- FILMSTRIP NAV (pętla) ---------- */
+document.addEventListener('click', e=>{
+  const btn = e.target.closest('.film-nav');
+  if(!btn) return;
+  const strip = document.getElementById(btn.dataset.film);
+  if(!strip) return;
+  const firstTile = strip.firstElementChild;
+  const tileWidth = firstTile ? firstTile.getBoundingClientRect().width + 10 : 230;
+  const maxScroll = strip.scrollWidth - strip.clientWidth;
+  if(btn.classList.contains('next')){
+    if(strip.scrollLeft >= maxScroll - 4){
+      strip.scrollTo({ left:0, behavior:'smooth' });
+    } else {
+      strip.scrollBy({ left:tileWidth, behavior:'smooth' });
+    }
+  } else {
+    if(strip.scrollLeft <= 4){
+      strip.scrollTo({ left:maxScroll, behavior:'smooth' });
+    } else {
+      strip.scrollBy({ left:-tileWidth, behavior:'smooth' });
+    }
+  }
+});
 
 /* ---------- MAPA GOOGLE ---------- */
 const HOUSE_ADDRESS = 'Marcinowa Wola 9C, 11-513 Marcinowa Wola, Polska';
