@@ -209,6 +209,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   /* ---------- KONTAKT ---------- */
   .contact-wrap{ display:flex; flex-direction:column; gap:22px; margin-top:44px; }
+  .contact-address-row{ display:flex; align-items:center; gap:20px; }
+  .contact-house-img{ display:block; width:120px; height:120px; object-fit:cover; border-radius:4px; flex-shrink:0; }
+  @media (max-width:640px){ .contact-house-img{ width:90px; height:90px; } }
   .contact-address{ font-family:var(--font-warm); font-size:0.95rem; color:var(--ink-soft); margin:-6px 0 0; }
   .contact-social{ display:inline-flex; align-items:center; gap:10px; text-decoration:none; color:var(--ink-soft); font-family:var(--font-warm); font-size:0.95rem; width:fit-content; transition:color 0.15s ease; }
   .contact-social:hover{ color:var(--ink); }
@@ -445,7 +448,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="contact-wrap">
       <a class="contact-line" href="tel:+48508436148">+48 508 436 148</a>
       <a class="contact-line" href="mailto:kontakt@domnadbuwelnem.pl">kontakt@domnadbuwelnem.pl</a>
-      <p class="contact-address" data-pl="Adres domu: Marcinowa Wola 9C, 11-513 Marcinowa Wola" data-en="House address: Marcinowa Wola 9C, 11-513 Marcinowa Wola, Poland">Adres domu: Marcinowa Wola 9C, 11-513 Marcinowa Wola</p>
+      <div class="contact-address-row">
+        <p class="contact-address" data-pl="Adres domu: Marcinowa Wola 9C, 11-513 Marcinowa Wola" data-en="House address: Marcinowa Wola 9C, 11-513 Marcinowa Wola, Poland">Adres domu: Marcinowa Wola 9C, 11-513 Marcinowa Wola</p>
+        <img src="images/logo.png" alt="" class="contact-house-img">
+      </div>
       <a class="contact-social" href="https://www.instagram.com/dom_nad_buwelnem" target="_blank" rel="noopener">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
           <rect x="2" y="2" width="20" height="20" rx="5.5"/>
