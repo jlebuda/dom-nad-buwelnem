@@ -140,6 +140,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   /* ---------- OKOLICA ---------- */
   .okolica-grid{ display:grid; grid-template-columns:1fr 1fr; gap:64px; margin-top:44px; }
+  .okolica-grid.cols-3{ grid-template-columns:1fr 1fr 1fr; }
+  .sport-list{ list-style:none; padding:0; margin:0; }
+  .sport-list li{ font-family:var(--font-warm); font-size:0.98rem; color:var(--ink-soft); padding:14px 2px; border-top:1px solid var(--line); line-height:1.5; }
+  .sport-list li:last-child{ border-bottom:1px solid var(--line); }
+  .history-list{ list-style:none; padding:0; margin:0; }
+  .history-list li{ border-top:1px solid var(--line); padding:16px 2px; }
+  .history-list li:last-child{ border-bottom:1px solid var(--line); }
+  .history-list .h-name{ display:block; font-family:var(--font-display); font-size:1.05rem; color:var(--ink); margin-bottom:4px; }
+  .history-list .h-desc{ font-family:var(--font-warm); font-size:0.88rem; color:var(--ink-soft); line-height:1.5; }
   .okolica-col h3{ font-family:var(--font-warm); font-size:0.78rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-faint); margin:0 0 22px; font-weight:600; }
   .okolica-list{ list-style:none; padding:0; margin:0; }
   .okolica-list li{ border-top:1px solid var(--line); }
@@ -208,6 +217,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .scroll-cue{ display:none; }
     .links{ display:none; }
     .okolica-grid{ grid-template-columns:1fr; gap:44px; }
+    .okolica-grid.cols-3{ grid-template-columns:1fr; }
     section.page{ padding:64px 6vw; }
   }
 </style>
@@ -313,29 +323,53 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="section-head">
       <p class="section-eyebrow" data-pl="Okolica" data-en="Surroundings">Okolica</p>
       <h2 class="section-title" data-pl="Marcinowa Wola i dalej" data-en="Marcinowa Wola and beyond">Marcinowa Wola i dalej</h2>
-      <p class="section-lede" data-pl="Cicha wieś między Orzyszem a Giżyckiem, z dala od tłumów, ale w wygodnej odległości od lokalnych atrakcji i restauracji." data-en="A quiet village between Orzysz and Giżycko, away from the crowds but a short drive from local attractions and restaurants.">Cicha wieś między Orzyszem a Giżyckiem, z dala od tłumów, ale w wygodnej odległości od lokalnych atrakcji i restauracji.</p>
+      <p class="section-lede" data-pl="Cicha wieś między Orzyszem a Giżyckiem, z dala od tłumów, ale w wygodnej odległości od lokalnych atrakcji, aktywności i restauracji." data-en="A quiet village between Orzysz and Giżycko, away from the crowds but a short drive from local attractions, activities and restaurants.">Cicha wieś między Orzyszem a Giżyckiem, z dala od tłumów, ale w wygodnej odległości od lokalnych atrakcji, aktywności i restauracji.</p>
     </div>
-    <div class="okolica-grid">
+    <div class="okolica-grid cols-3">
       <div class="okolica-col">
         <h3 data-pl="Restauracje" data-en="Restaurants">Restauracje</h3>
         <ul class="okolica-list">
           <li><a href="https://pensjonatteresa.pl/" target="_blank" rel="noopener"><span>Pensjonat Teresa <span style="font-family:var(--font-warm);font-size:0.7rem;color:var(--ink-faint);">— na miejscu</span></span><span class="arrow">↗</span></a></li>
           <li><a href="https://starakuznia.com.pl/" target="_blank" rel="noopener"><span>Stara Kuźnia <span style="font-family:var(--font-warm);font-size:0.7rem;color:var(--ink-faint);">— 2 km</span></span><span class="arrow">↗</span></a></li>
           <li><a href="https://gospoda.pl/" target="_blank" rel="noopener"><span>Gospoda pod Czarnym Łabędziem <span style="font-family:var(--font-warm);font-size:0.7rem;color:var(--ink-faint);">— Rydzewo</span></span><span class="arrow">↗</span></a></li>
+          <li><a href="https://browar-chmury.app.restimo.com/" target="_blank" rel="noopener"><span>W Chmurach <span style="font-family:var(--font-warm);font-size:0.7rem;color:var(--ink-faint);">— Giżycko</span></span><span class="arrow">↗</span></a></li>
+          <li><a href="https://gosciniec-wydminy.eatbu.com/" target="_blank" rel="noopener"><span>Gościniec Wydminy <span style="font-family:var(--font-warm);font-size:0.7rem;color:var(--ink-faint);">— Wydminy</span></span><span class="arrow">↗</span></a></li>
+          <li><a href="https://karczma-upalty.com/pl/" target="_blank" rel="noopener"><span>Stary Młyn <span style="font-family:var(--font-warm);font-size:0.7rem;color:var(--ink-faint);">— Upałty</span></span><span class="arrow">↗</span></a></li>
         </ul>
       </div>
       <div class="okolica-col">
-        <h3 data-pl="Atrakcje" data-en="Attractions">Atrakcje</h3>
+        <h3 data-pl="Sport i aktywności" data-en="Sport and activities">Sport i aktywności</h3>
         <ul class="okolica-list">
           <li><a href="https://wielkiejeziora.pl/mazurska-petla-rowerowa/" target="_blank" rel="noopener"><span data-pl="Mazurska Pętla Rowerowa" data-en="Masurian Cycling Loop">Mazurska Pętla Rowerowa</span><span class="arrow">↗</span></a></li>
         </ul>
         <ul class="plain-list">
+          <li data-pl="Kajak i 2 SUPy — dostępne dla gości na miejscu, bez dodatkowych opłat" data-en="Kayak and 2 SUPs — available to guests on site, at no extra charge">Kajak i 2 SUPy — dostępne dla gości na miejscu, bez dodatkowych opłat</li>
           <li data-pl="Plac zabaw, boisko i siłownia plenerowa — 500 m" data-en="Playground, sports field and outdoor gym — 500 m">Plac zabaw, boisko i siłownia plenerowa — 500 m</li>
-          <li data-pl="Pętla piesza i biegowa (21 km) wokół jeziora Buwełno" data-en="A 21 km walking and running loop around Lake Buwełno">Pętla piesza i biegowa (21 km) wokół jeziora Buwełno</li>
-          <li data-pl="Las — 2 km" data-en="Forest — 2 km">Las — 2 km</li>
+          <li data-pl="Trasy biegowe — 6, 10, 15 km oraz trasa półmaratońska (GPX wkrótce do pobrania)" data-en="Running routes — 6, 10, 15 km and a half-marathon route (GPX files coming soon)">Trasy biegowe — 6, 10, 15 km oraz trasa półmaratońska (GPX wkrótce do pobrania)</li>
+          <li data-pl="Las — 1,5 km" data-en="Forest — 1.5 km">Las — 1,5 km</li>
           <li data-pl="Stadnina koni — 1,5 km" data-en="Horse riding stable — 1.5 km">Stadnina koni — 1,5 km</li>
         </ul>
-        <p class="okolica-note" data-pl="Plac zabaw, pętlę biegową i stadninę zostawiłem bez linku — nie znalazłem dla nich wiarygodnej, oficjalnej strony. Daj znać, jeśli masz konkretne miejsca/nazwy, a dodam linki." data-en="I've left the playground, running loop and stable without links — I couldn't find a reliable official page for them. Let me know the exact names if you have them, and I'll add links.">Plac zabaw, pętlę biegową i stadninę zostawiłem bez linku — nie znalazłem dla nich wiarygodnej, oficjalnej strony. Daj znać, jeśli masz konkretne miejsca/nazwy, a dodam linki.</p>
+      </div>
+      <div class="okolica-col">
+        <h3 data-pl="Historia" data-en="History">Historia</h3>
+        <ul class="history-list">
+          <li>
+            <span class="h-name">Wilczy Szaniec</span>
+            <span class="h-desc" data-pl="Główna kwatera Hitlera na froncie wschodnim, gdzie w 1944 roku pułkownik von Stauffenberg dokonał nieudanego zamachu na jego życie." data-en="Hitler's Eastern Front military headquarters, where in 1944 Colonel von Stauffenberg carried out a failed assassination attempt on his life.">Główna kwatera Hitlera na froncie wschodnim, gdzie w 1944 roku pułkownik von Stauffenberg dokonał nieudanego zamachu na jego życie.</span>
+          </li>
+          <li>
+            <span class="h-name">Zamek w Reszlu i Święta Lipka</span>
+            <span class="h-desc" data-pl="Gotycki zamek warmińskich biskupów z XIV wieku, a tuż obok — barokowe sanktuarium w Świętej Lipce, słynące z bogato zdobionego wnętrza i zabytkowych organów." data-en="A 14th-century Gothic castle of the Warmian bishops, and nearby — the Baroque sanctuary at Święta Lipka, famous for its richly decorated interior and historic organ.">Gotycki zamek warmińskich biskupów z XIV wieku, a tuż obok — barokowe sanktuarium w Świętej Lipce, słynące z bogato zdobionego wnętrza i zabytkowych organów.</span>
+          </li>
+          <li>
+            <span class="h-name">Twierdza Boyen w Giżycku</span>
+            <span class="h-desc" data-pl="XIX-wieczna pruska twierdza wojskowa, jedna z najlepiej zachowanych tego typu w Polsce." data-en="A 19th-century Prussian military fortress, one of the best-preserved of its kind in Poland.">XIX-wieczna pruska twierdza wojskowa, jedna z najlepiej zachowanych tego typu w Polsce.</span>
+          </li>
+          <li>
+            <span class="h-name">Bunkry w Mamerkach</span>
+            <span class="h-desc" data-pl="Rozległy kompleks bunkrów Naczelnego Dowództwa Wojsk Lądowych III Rzeszy z czasów II wojny światowej." data-en="An extensive WWII bunker complex that served as the headquarters of the German Army High Command (OKH).">Rozległy kompleks bunkrów Naczelnego Dowództwa Wojsk Lądowych III Rzeszy z czasów II wojny światowej.</span>
+          </li>
+        </ul>
       </div>
     </div>
   </section>
@@ -423,7 +457,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <span data-pl="Marcinowa Wola, Mazury" data-en="Marcinowa Wola, Masuria, Poland">Marcinowa Wola, Mazury</span>
     </div>
-    <p class="footer-credit">Designed by a human and Claude Code</p>
+    <div class="footer-row">
+      <a href="polityka-prywatnosci.html" data-pl="Polityka prywatności" data-en="Privacy Policy" style="text-decoration:none; color:var(--ink-faint);">Polityka prywatności</a>
+      <p class="footer-credit" style="margin:0;">Designed by a human and Claude Code</p>
+    </div>
   </footer>
 
   <!-- ---------- LIGHTBOX ---------- -->
