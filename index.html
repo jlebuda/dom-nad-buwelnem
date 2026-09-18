@@ -210,9 +210,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   /* ---------- KONTAKT ---------- */
   .contact-layout{ display:flex; align-items:stretch; justify-content:space-between; gap:48px; margin-top:44px; flex-wrap:wrap; }
   .contact-wrap{ display:flex; flex-direction:column; gap:22px; }
-  .contact-house-img{ display:block; width:260px; max-width:100%; object-fit:cover; border-radius:4px; flex-shrink:0; }
+  .contact-house-frame{ width:260px; max-width:100%; align-self:stretch; overflow:hidden; border-radius:4px; flex-shrink:0; position:relative; background:var(--bg-soft); }
+  .contact-house-img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transform:scale(1.8); }
   @media (max-width:760px){
-    .contact-house-img{ width:100%; max-width:none; height:320px; }
+    .contact-house-frame{ width:100%; max-width:none; height:320px; }
   }
   .contact-address{ font-family:var(--font-warm); font-size:0.95rem; color:var(--ink-soft); margin:-6px 0 0; }
   .contact-social{ display:inline-flex; align-items:center; gap:10px; text-decoration:none; color:var(--ink-soft); font-family:var(--font-warm); font-size:0.95rem; width:fit-content; transition:color 0.15s ease; }
@@ -468,7 +469,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <span data-pl="Obserwuj nas na Facebooku" data-en="Follow us on Facebook">Obserwuj nas na Facebooku</span>
         </a>
       </div>
-      <img src="images/logo.png" alt="" class="contact-house-img">
+      <div class="contact-house-frame">
+        <img src="images/logo.png" alt="" class="contact-house-img">
+      </div>
     </div>
     <div id="map" class="contact-map" role="application" aria-label="Mapa lokalizacji domu"></div>
   </section>
