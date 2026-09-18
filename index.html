@@ -109,12 +109,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .section-lede{ font-family:var(--font-warm); font-size:1.05rem; line-height:1.65; color:var(--ink-soft); max-width:60ch; }
 
   /* ---------- O DOMU ---------- */
-  .about-grid{ display:grid; grid-template-columns:1fr; gap:10px; margin-top:44px; }
-  .about-grid .ph{ background:linear-gradient(160deg,#ECEBE8,#B9B8B4); position:relative; aspect-ratio:16/9; }
-  .about-grid .ph:nth-child(2){ background:linear-gradient(160deg,#E4E3DF,#AEADA9); }
-  .about-grid .ph:nth-child(3){ background:linear-gradient(160deg,#EFEEEA,#C3C2BE); }
-  .about-grid .ph span{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; text-align:center; padding:10%; font-family:var(--font-warm); font-size:0.72rem; color:rgba(19,19,19,0.5); }
-  .about-grid .ph img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; cursor:zoom-in; }
+  .about-grid{ margin-top:44px; }
   .facts{ display:flex; flex-wrap:wrap; gap:10px 28px; margin-top:40px; font-family:var(--font-warm); font-size:0.85rem; color:var(--ink-soft); }
   .facts li{ list-style:none; padding-left:16px; position:relative; }
   .facts li::before{ content:'—'; position:absolute; left:0; color:var(--ink-faint); }
@@ -125,17 +120,42 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .room-group-title:first-of-type{ margin-top:48px; }
   .room-band{ padding:48px 0; border-top:1px solid var(--line); }
   .room-band-text{ max-width:680px; margin:0 0 28px; }
-  .room-band-photos{ display:grid; grid-template-columns:1fr; gap:10px; }
-  .room-band-photos .ph{ background:linear-gradient(160deg,#ECEBE8,#B9B8B4); position:relative; overflow:hidden; aspect-ratio:16/9; }
-  .room-band-photos .ph:nth-child(2){ background:linear-gradient(160deg,#E4E3DF,#AEADA9); }
-  .room-band-photos .ph:nth-child(3){ background:linear-gradient(160deg,#EFEEEA,#C3C2BE); }
-  .room-band-photos .ph span{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; text-align:center; padding:10%; font-family:var(--font-warm); font-size:0.72rem; color:rgba(19,19,19,0.48); }
-  .room-band-photos .ph img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; cursor:zoom-in; }
+
+  /* ---- shared photo-slot look, used by about-grid AND room-band-photos ---- */
+  .about-grid .ph, .room-band-photos .ph{ background:linear-gradient(160deg,#ECEBE8,#B9B8B4); position:relative; overflow:hidden; }
+  .about-grid .ph:nth-child(2), .room-band-photos .ph:nth-child(2){ background:linear-gradient(160deg,#E4E3DF,#AEADA9); }
+  .about-grid .ph:nth-child(3), .room-band-photos .ph:nth-child(3){ background:linear-gradient(160deg,#EFEEEA,#C3C2BE); }
+  .about-grid .ph span, .room-band-photos .ph span{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; text-align:center; padding:10%; font-family:var(--font-warm); font-size:0.72rem; color:rgba(19,19,19,0.48); }
+  .about-grid .ph img, .room-band-photos .ph img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; cursor:zoom-in; }
+
+  /* ---- count-1: one full-width photo ---- */
+  .count-1{ display:block; }
+  .count-1 .ph{ aspect-ratio:21/10; }
+
+  /* ---- count-2: two side by side, first bigger ---- */
+  .count-2{ display:grid; grid-template-columns:1.3fr 1fr; gap:10px; height:320px; }
+  .count-2 .ph{ height:100%; }
+
+  /* ---- count-3: even row of three ---- */
+  .count-3{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; height:280px; }
+  .count-3 .ph{ height:100%; }
+
+  /* ---- count-many: hero + scrollable filmstrip ---- */
+  .count-many .hero-shot{ aspect-ratio:21/10; margin-bottom:10px; }
+  .count-many .filmstrip{ display:flex; gap:10px; overflow-x:auto; padding-bottom:10px; -webkit-overflow-scrolling:touch; scroll-snap-type:x proximity; }
+  .count-many .filmstrip .ph{ flex:0 0 220px; aspect-ratio:4/3; scroll-snap-align:start; }
+  .count-many .filmstrip::-webkit-scrollbar{ height:5px; }
+  .count-many .filmstrip::-webkit-scrollbar-thumb{ background:var(--line); border-radius:4px; }
 
   .room-band-text .room-name{ font-family:var(--font-display); font-size:clamp(1.7rem,2.6vw,2.3rem); margin:0 0 16px; font-weight:400; }
   .room-band-text .room-desc{ font-family:var(--font-warm); font-size:1rem; line-height:1.65; color:var(--ink-soft); margin:0; max-width:42ch; }
   @media (max-width:860px){
     .room-band{ padding:36px 0; }
+  }
+  @media (max-width:640px){
+    .count-2, .count-3{ display:block; height:auto; }
+    .count-2 .ph, .count-3 .ph{ height:auto; aspect-ratio:4/3; margin-bottom:10px; }
+    .count-many .filmstrip .ph{ flex-basis:160px; }
   }
 
   /* ---------- OKOLICA ---------- */
@@ -284,8 +304,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <h2 class="section-title" data-pl="Cisza, spokojne jezioro, i szczęśliwe krowy" data-en="Quiet, a calm lake, and happy cows">Cisza, spokojne jezioro, i szczęśliwe krowy</h2>
       <p class="section-lede" data-pl="Dom łączy skandynawską prostotę z mazurską tradycją. 155 m², dwie kondygnacje, ogromny taras z wygodną sofą oraz miejscem na posiłki, własny, łagodny dostęp do jeziora Buwełno — na wyłączność tylko dla Was." data-en="The house pairs Scandinavian simplicity with Masurian tradition. 155 m² over two floors, a huge terrace with a comfortable sofa and space to dine, and gentle private access to Lake Buwełno — all yours, exclusively.">Dom łączy skandynawską prostotę z mazurską tradycją. 155 m², dwie kondygnacje, ogromny taras z wygodną sofą oraz miejscem na posiłki, własny, łagodny dostęp do jeziora Buwełno — na wyłączność tylko dla Was.</p>
     </div>
-    <div class="about-grid">
-      <div class="ph large"><img class="zoomable" src="images/lake-aerial.jpg" alt="Jezioro Buwełno z lotu ptaka"></div>
+    <div class="about-grid count-3">
+      <div class="ph"><img class="zoomable" src="images/lake-aerial.jpg" alt="Jezioro Buwełno z lotu ptaka"></div>
       <div class="ph"><img class="zoomable" src="images/facade.jpg" alt="Fasada domu nad Buwełnem"></div>
       <div class="ph"><img class="zoomable" src="images/campfire.jpg" alt="Wieczór przy ognisku"></div>
     </div>
@@ -563,38 +583,47 @@ const rooms = [
 ];
 
 const lang = () => document.documentElement.dataset.lang;
-function photoSlotHTML(src, altText, placeholderText, fit, aspect, pos){
+function photoSlotHTML(src, altText, placeholderText, fit, pos){
   if(!src) return `<div class="ph"><span>${placeholderText}</span></div>`;
-  const aspectStyle = aspect ? `aspect-ratio:${aspect};` : '';
   const posStyle = pos ? `object-position:${pos};` : '';
   if(fit === 'contain'){
-    return `<div class="ph" style="background:var(--card);${aspectStyle}"><img class="zoomable" src="${src}" alt="${altText}" style="object-fit:contain;"></div>`;
+    return `<div class="ph" style="background:var(--card);"><img class="zoomable" src="${src}" alt="${altText}" style="object-fit:contain;"></div>`;
   }
-  return `<div class="ph" style="${aspectStyle}"><img class="zoomable" src="${src}" alt="${altText}" style="${posStyle}"></div>`;
+  return `<div class="ph"><img class="zoomable" src="${src}" alt="${altText}" style="${posStyle}"></div>`;
+}
+
+function normalizePhotos(r){
+  if(r.photos && r.photos.length) return r.photos;
+  return [1,2,3].map(n => r['photo'+n] ? { src:r['photo'+n], fit:r['photo'+n+'Fit'], pos:r['photo'+n+'Pos'] } : null).filter(Boolean);
+}
+
+function photosBlockHTML(photos, name, shot){
+  const count = photos.length;
+  if(count === 0){
+    return `<div class="room-band-photos count-1">${photoSlotHTML(null, name, `${shot}: ${name.toLowerCase()}`)}</div>`;
+  }
+  if(count >= 6){
+    const [hero, ...rest] = photos;
+    const heroHtml = `<div class="hero-shot">${photoSlotHTML(hero.src, name, `${shot} 1: ${name.toLowerCase()}`, hero.fit, hero.pos)}</div>`;
+    const filmHtml = `<div class="filmstrip">${rest.map((p,i)=>photoSlotHTML(p.src, name, `${shot} ${i+2}: ${name.toLowerCase()}`, p.fit, p.pos)).join('')}</div>`;
+    return `<div class="room-band-photos count-many">${heroHtml}${filmHtml}</div>`;
+  }
+  const cls = 'count-' + Math.min(count, 3);
+  const inner = photos.map((p,i)=> photoSlotHTML(p.src, name, `${shot} ${i+1}: ${name.toLowerCase()}`, p.fit, p.pos)).join('');
+  return `<div class="room-band-photos ${cls}">${inner}</div>`;
 }
 
 function roomBandHTML(r){
   const name = lang()==='pl' ? r.pl : r.en;
   const desc = lang()==='pl' ? r.descPl : r.descEn;
   const shot = lang()==='pl' ? 'zdjęcie' : 'photo';
-  let photosHtml;
-  if(r.photos && r.photos.length){
-    photosHtml = r.photos.map((p, i) =>
-      photoSlotHTML(p.src, name, `${shot} ${i+1}: ${name.toLowerCase()}`, p.fit, p.aspect, p.pos)
-    ).join('');
-  } else {
-    photosHtml = [1,2,3].map(n =>
-      photoSlotHTML(r['photo'+n], name, `${shot} ${n}: ${name.toLowerCase()}`, r['photo'+n+'Fit'], r['photo'+n+'Aspect'], r['photo'+n+'Pos'])
-    ).join('');
-  }
+  const photosHtml = photosBlockHTML(normalizePhotos(r), name, shot);
   return `<div class="room-band">
     <div class="room-band-text">
       <h3 class="room-name">${name}</h3>
       <p class="room-desc">${desc}</p>
     </div>
-    <div class="room-band-photos">
-      ${photosHtml}
-    </div>
+    ${photosHtml}
   </div>`;
 }
 
