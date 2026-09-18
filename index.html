@@ -208,10 +208,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .plain-list li:last-child{ border-bottom:1px solid var(--line); }
 
   /* ---------- KONTAKT ---------- */
-  .contact-wrap{ display:flex; flex-direction:column; gap:22px; margin-top:44px; }
-  .contact-address-row{ display:flex; align-items:center; gap:20px; }
-  .contact-house-img{ display:block; width:120px; height:120px; object-fit:cover; border-radius:4px; flex-shrink:0; }
-  @media (max-width:640px){ .contact-house-img{ width:90px; height:90px; } }
+  .contact-layout{ display:flex; align-items:flex-start; justify-content:space-between; gap:48px; margin-top:44px; flex-wrap:wrap; }
+  .contact-wrap{ display:flex; flex-direction:column; gap:22px; }
+  .contact-house-img{ display:block; width:280px; max-width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:4px; flex-shrink:0; }
+  @media (max-width:760px){
+    .contact-house-img{ width:100%; max-width:340px; }
+  }
   .contact-address{ font-family:var(--font-warm); font-size:0.95rem; color:var(--ink-soft); margin:-6px 0 0; }
   .contact-social{ display:inline-flex; align-items:center; gap:10px; text-decoration:none; color:var(--ink-soft); font-family:var(--font-warm); font-size:0.95rem; width:fit-content; transition:color 0.15s ease; }
   .contact-social:hover{ color:var(--ink); }
@@ -445,28 +447,28 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <h2 class="section-title" data-pl="Zapytaj o wolny termin" data-en="Ask about availability">Zapytaj o wolny termin</h2>
       <p class="section-lede" data-pl="Rezerwacje telefonicznie lub mailowo." data-en="Bookings by phone or email.">Rezerwacje telefonicznie lub mailowo.</p>
     </div>
-    <div class="contact-wrap">
-      <a class="contact-line" href="tel:+48508436148">+48 508 436 148</a>
-      <a class="contact-line" href="mailto:kontakt@domnadbuwelnem.pl">kontakt@domnadbuwelnem.pl</a>
-      <div class="contact-address-row">
+    <div class="contact-layout">
+      <div class="contact-wrap">
+        <a class="contact-line" href="tel:+48508436148">+48 508 436 148</a>
+        <a class="contact-line" href="mailto:kontakt@domnadbuwelnem.pl">kontakt@domnadbuwelnem.pl</a>
         <p class="contact-address" data-pl="Adres domu: Marcinowa Wola 9C, 11-513 Marcinowa Wola" data-en="House address: Marcinowa Wola 9C, 11-513 Marcinowa Wola, Poland">Adres domu: Marcinowa Wola 9C, 11-513 Marcinowa Wola</p>
-        <img src="images/logo.png" alt="" class="contact-house-img">
+        <a class="contact-social" href="https://www.instagram.com/dom_nad_buwelnem" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5.5"/>
+            <circle cx="12" cy="12" r="4.2"/>
+            <circle cx="17.3" cy="6.7" r="0.6" fill="currentColor" stroke="none"/>
+          </svg>
+          <span data-pl="Obserwuj nas na Instagramie" data-en="Follow us on Instagram">Obserwuj nas na Instagramie</span>
+        </a>
+        <a class="contact-social" href="https://www.facebook.com/DomNadBuwelnem/" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5.5"/>
+            <path d="M14.8 6.8h-1.6c-1.4 0-2.3.9-2.3 2.4v1.7h-1.8v2.3h1.8v6h2.5v-6h2l.3-2.3h-2.3v-1.4c0-.5.3-.8.8-.8h1.6z" fill="currentColor" stroke="none"/>
+          </svg>
+          <span data-pl="Obserwuj nas na Facebooku" data-en="Follow us on Facebook">Obserwuj nas na Facebooku</span>
+        </a>
       </div>
-      <a class="contact-social" href="https://www.instagram.com/dom_nad_buwelnem" target="_blank" rel="noopener">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="2" y="2" width="20" height="20" rx="5.5"/>
-          <circle cx="12" cy="12" r="4.2"/>
-          <circle cx="17.3" cy="6.7" r="0.6" fill="currentColor" stroke="none"/>
-        </svg>
-        <span data-pl="Obserwuj nas na Instagramie" data-en="Follow us on Instagram">Obserwuj nas na Instagramie</span>
-      </a>
-      <a class="contact-social" href="https://www.facebook.com/DomNadBuwelnem/" target="_blank" rel="noopener">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="2" y="2" width="20" height="20" rx="5.5"/>
-          <path d="M14.8 6.8h-1.6c-1.4 0-2.3.9-2.3 2.4v1.7h-1.8v2.3h1.8v6h2.5v-6h2l.3-2.3h-2.3v-1.4c0-.5.3-.8.8-.8h1.6z" fill="currentColor" stroke="none"/>
-        </svg>
-        <span data-pl="Obserwuj nas na Facebooku" data-en="Follow us on Facebook">Obserwuj nas na Facebooku</span>
-      </a>
+      <img src="images/logo.png" alt="" class="contact-house-img">
     </div>
     <div id="map" class="contact-map" role="application" aria-label="Mapa lokalizacji domu"></div>
   </section>
