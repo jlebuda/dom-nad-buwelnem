@@ -183,6 +183,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   /* ---------- OCZAMI GOŚCI ---------- */
   .reviews-carousel{ display:flex; align-items:stretch; gap:0; margin-top:44px; }
+  .review-filters{ display:flex; gap:10px; flex-wrap:wrap; margin:-20px 0 8px; }
+  .review-filter{ font-family:var(--font-warm); font-size:0.82rem; letter-spacing:0.02em; color:var(--ink-soft); background:none; border:1px solid var(--line); border-radius:999px; padding:7px 16px; cursor:pointer; transition:color 0.15s ease, border-color 0.15s ease, background 0.15s ease; }
+  .review-filter:hover{ color:var(--ink); border-color:var(--ink-faint); }
+  .review-filter.active{ background:var(--ink); border-color:var(--ink); color:#fff; }
+  .review-filter .count{ opacity:0.6; margin-left:6px; }
   .review-card{ flex:0 1 680px; max-width:680px; margin:0 auto; text-align:center; min-height:180px; display:flex; flex-direction:column; justify-content:center; }
   .review-quote{ font-family:var(--font-display); font-style:italic; font-size:clamp(1.15rem,2vw,1.4rem); line-height:1.55; color:var(--ink); margin:0 0 22px; }
   .review-meta{ display:flex; align-items:center; justify-content:center; gap:10px; font-family:var(--font-warm); font-size:0.85rem; color:var(--ink-soft); flex-wrap:wrap; }
@@ -417,6 +422,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <p class="section-eyebrow" data-pl="Oczami Gości" data-en="Through Our Guests' Eyes">Oczami Gości</p>
       <h2 class="section-title" data-pl="Co mówią goście" data-en="What guests say">Co mówią goście</h2>
     </div>
+    <div class="review-filters" id="reviewFilters" role="group" aria-label="Filtr opinii wg portalu"></div>
     <div class="reviews-carousel">
       <button class="rev-nav rev-prev" id="revPrev" aria-label="Poprzednia opinia">←</button>
       <div class="review-card">
@@ -722,37 +728,97 @@ const reviews = [
 ];
 
 let reviewIndex = 0;
+let reviewFilter = 'all';
+function visibleReviews(){
+  return reviewFilter === 'all' ? reviews : reviews.filter(r => r.platform === reviewFilter);
+}
+function renderFilters(){
+  const box = document.getElementById('reviewFilters');
+  if(!box) return;
+  const platforms = [...new Set(reviews.map(r => r.platform))];
+  if(platforms.length < 2){ box.innerHTML = ''; return; }
+  const allLabel = lang()==='pl' ? 'Wszystkie' : 'All';
+  const btn = (key, label, n) =>
+    `<button class="review-filter${reviewFilter===key?' active':''}" data-filter="${key}">${label}<span class="count">${n}</span></button>`;
+  box.innerHTML = btn('all', allLabel, reviews.length) +
+    platforms.map(p => btn(p, p, reviews.filter(r=>r.platform===p).length)).join('');
+  box.querySelectorAll('.review-filter').forEach(b=>{
+    b.addEventListener('click', ()=>{
+      reviewFilter = b.dataset.filter;
+      reviewIndex = 0;
+      renderDots();
+      renderReview();
+    });
+  });
+}
 
-function ratingBadgeHTML(platform){
-  if(platform === 'Booking.com'){
+function ratingBadgeHTML(r){
+  if(r.platform === 'Booking.com'){
     return '<span class="review-rating-booking" aria-label="Ocena 10">10</span>';
+  }
+  if(r.platform === 'Google'){
+    const n = Math.max(0, Math.min(5, Math.round(Number(r.rating) || 0)));
+    return '<span class="review-rating-airbnb" aria-label="Ocena ' + n + ' na 5"><span class="star">' + '★'.repeat(n) + '☆'.repeat(5 - n) + '</span></span>';
   }
   return '<span class="review-rating-airbnb" aria-label="Ocena 5 gwiazdek"><span class="star">★★★★★</span></span>';
 }
 
+function safeHttps(u){
+  try { const x = new URL(u); return x.protocol === 'https:' ? x.href : ''; } catch(e){ return ''; }
+}
+
 function renderReview(){
-  const r = reviews[reviewIndex];
+  const list = visibleReviews();
+  const r = list[reviewIndex];
+  if(!r) return;
+  renderFilters();
   const l = lang();
   document.getElementById('reviewQuote').textContent = '“' + (l==='pl' ? r.quotePl : r.quoteEn) + '”';
-  document.getElementById('reviewName').textContent = r.name + ',';
-  document.getElementById('reviewFlag').textContent = r.flag;
-  document.getElementById('reviewCountry').textContent = (l==='pl' ? r.countryPl : r.countryEn) + ' ·';
-  document.getElementById('reviewPlatform').textContent = r.platform;
-  document.getElementById('reviewRating').innerHTML = ratingBadgeHTML(r.platform);
+  const country = (l==='pl' ? r.countryPl : r.countryEn) || '';
+  const nameEl = document.getElementById('reviewName');
+  nameEl.textContent = '';
+  if(r.authorUri){
+    const a = document.createElement('a');
+    a.href = r.authorUri; a.target = '_blank'; a.rel = 'noopener';
+    a.textContent = r.name;
+    a.style.textDecoration = 'underline'; a.style.textUnderlineOffset = '3px';
+    nameEl.appendChild(a);
+    nameEl.appendChild(document.createTextNode(country ? ',' : ' ·'));
+  } else {
+    nameEl.textContent = r.name + (country ? ',' : ' ·');
+  }
+  document.getElementById('reviewFlag').textContent = r.flag || '';
+  document.getElementById('reviewCountry').textContent = country ? country + ' ·' : '';
+  const platEl = document.getElementById('reviewPlatform');
+  platEl.textContent = '';
+  if(r.platform === 'Google'){
+    if(r.mapsUri){
+      const a = document.createElement('a');
+      a.href = r.mapsUri; a.target = '_blank'; a.rel = 'noopener';
+      a.textContent = 'Google Maps';
+      a.style.color = 'inherit'; a.style.textDecoration = 'none';
+      platEl.appendChild(a);
+    } else {
+      platEl.textContent = 'Google Maps';
+    }
+  } else {
+    platEl.textContent = r.platform;
+  }
+  document.getElementById('reviewRating').innerHTML = ratingBadgeHTML(r);
   document.querySelectorAll('.review-dot').forEach((d,i)=> d.classList.toggle('active', i===reviewIndex));
 }
 function renderDots(){
-  document.getElementById('reviewDots').innerHTML = reviews.map((_,i)=>
+  document.getElementById('reviewDots').innerHTML = visibleReviews().map((_,i)=>
     `<button class="review-dot" data-i="${i}" aria-label="Opinia ${i+1}"></button>`).join('');
   document.querySelectorAll('.review-dot').forEach(btn=>{
     btn.addEventListener('click', ()=>{ reviewIndex = parseInt(btn.dataset.i); renderReview(); });
   });
 }
 document.getElementById('revPrev').addEventListener('click', ()=>{
-  reviewIndex = (reviewIndex - 1 + reviews.length) % reviews.length; renderReview();
+  reviewIndex = (reviewIndex - 1 + visibleReviews().length) % visibleReviews().length; renderReview();
 });
 document.getElementById('revNext').addEventListener('click', ()=>{
-  reviewIndex = (reviewIndex + 1) % reviews.length; renderReview();
+  reviewIndex = (reviewIndex + 1) % visibleReviews().length; renderReview();
 });
 renderDots();
 renderReview();
@@ -771,9 +837,9 @@ renderReview();
     const threshold = 40;
     if(Math.abs(diff) < threshold) return;
     if(diff > 0){
-      reviewIndex = (reviewIndex + 1) % reviews.length;
+      reviewIndex = (reviewIndex + 1) % visibleReviews().length;
     } else {
-      reviewIndex = (reviewIndex - 1 + reviews.length) % reviews.length;
+      reviewIndex = (reviewIndex - 1 + visibleReviews().length) % visibleReviews().length;
     }
     renderReview();
   }, { passive:true });
@@ -846,7 +912,62 @@ const mapMonoStyles = [
   { featureType: 'water', elementType: 'labels.text.fill', stylers: [{ color: '#9c9c9a' }] },
 ];
 
+/* ---------- OPINIE Z GOOGLE (Places API, na żywo, bez zapisywania) ---------- */
+const GOOGLE_PLACE_ID = 'ChIJVSSALQCN4UYR1GD68vi254k';
+let mapsReady = false, reviewsSectionSeen = false, googleReviewsStarted = false;
+
+async function loadGoogleReviews(){
+  try {
+    if(!(window.google && google.maps.places && google.maps.places.Place)) throw new Error('Biblioteka Places niedostępna');
+    const place = new google.maps.places.Place({ id: GOOGLE_PLACE_ID, requestedLanguage: 'en' });
+    await place.fetchFields({ fields: ['reviews', 'googleMapsURI'] });
+    const mapsUri = safeHttps(place.googleMapsURI);
+    const txt = v => (v && typeof v === 'object') ? (v.text || '') : (v || '');
+    let added = 0;
+    (place.reviews || []).forEach(rv => {
+      const translated = String(txt(rv.text)).trim();
+      const original = String(txt(rv.originalText)).trim() || translated;
+      if(!original) return;
+      const attr = rv.authorAttribution || {};
+      reviews.push({
+        name: attr.displayName || 'Google',
+        authorUri: safeHttps(attr.uri),
+        countryPl: '', countryEn: '', flag: '',
+        platform: 'Google',
+        rating: rv.rating,
+        mapsUri: mapsUri,
+        quotePl: original,
+        quoteEn: translated || original
+      });
+      added++;
+    });
+    if(added){ renderDots(); renderReview(); }
+  } catch(err){
+    console.warn('Nie udało się pobrać opinii z Google:', err);
+  }
+}
+function maybeLoadGoogleReviews(){
+  if(mapsReady && reviewsSectionSeen && !googleReviewsStarted){
+    googleReviewsStarted = true;
+    loadGoogleReviews();
+  }
+}
+(function(){
+  const sec = document.getElementById('opinie');
+  if(!sec) return;
+  if('IntersectionObserver' in window){
+    const io = new IntersectionObserver(entries => {
+      if(entries.some(e => e.isIntersecting)){ reviewsSectionSeen = true; io.disconnect(); maybeLoadGoogleReviews(); }
+    }, { rootMargin: '400px 0px' });
+    io.observe(sec);
+  } else {
+    reviewsSectionSeen = true;
+  }
+})();
+
 function initMap(){
+  mapsReady = true;
+  maybeLoadGoogleReviews();
   const mapDiv = document.getElementById('map');
   if(!mapDiv) return;
 
@@ -901,7 +1022,7 @@ function initMap(){
 window.initMap = initMap;
 </script>
 
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9NJKSxmTCYO_xLswpijMT2-rHq9iOQqI&callback=initMap"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9NJKSxmTCYO_xLswpijMT2-rHq9iOQqI&libraries=places&callback=initMap"></script>
 
 </body>
 </html>
