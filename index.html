@@ -113,6 +113,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .section-title{ font-family:var(--font-display); font-size:clamp(2rem,3.4vw,2.8rem); font-weight:400; margin:0 0 16px; }
   .section-lede{ font-family:var(--font-warm); font-size:1.05rem; line-height:1.65; color:var(--ink-soft); max-width:60ch; }
 
+  /* ---------- CERAMIKA ---------- */
+  .ceramics-band{ display:grid; grid-template-columns:minmax(0,380px) minmax(0,1fr); gap:72px; align-items:center; }
+  .ceramics-photo{ aspect-ratio:3/4; overflow:hidden; background:linear-gradient(160deg,#ECEBE8,#B9B8B4); }
+  .ceramics-photo img{ width:100%; height:100%; object-fit:cover; display:block; cursor:zoom-in; }
+  .ceramics-text .section-head{ margin-bottom:0; }
+  .ceramics-text .section-lede + .section-lede{ margin-top:14px; }
+  .ceramics-link{ display:inline-flex; align-items:center; gap:10px; margin-top:28px; text-decoration:none; font-family:var(--font-display); font-size:1.2rem; border-bottom:1px solid var(--line); padding:6px 2px; }
+  .ceramics-link:hover{ color:var(--ink-soft); }
+  .ceramics-link .arrow{ font-family:var(--font-warm); font-size:0.9rem; color:var(--ink-faint); }
+
   /* ---------- O DOMU ---------- */
   .about-grid{ margin-top:44px; }
   .facts{ display:flex; flex-wrap:wrap; gap:10px 28px; margin-top:40px; font-family:var(--font-warm); font-size:0.85rem; color:var(--ink-soft); }
@@ -260,6 +270,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .okolica-grid{ grid-template-columns:1fr; gap:44px; }
     .okolica-grid.cols-3{ grid-template-columns:1fr; }
     section.page{ padding:64px 6vw; }
+    .ceramics-band{ grid-template-columns:1fr; gap:36px; }
+    .ceramics-photo{ max-width:420px; }
   }
 </style>
 </head>
@@ -337,7 +349,26 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <li data-pl="w pełni wyposażona kuchnia" data-en="fully equipped kitchen">w pełni wyposażona kuchnia</li>
       <li data-pl="wygodna jadalnia" data-en="a comfortable dining area">wygodna jadalnia</li>
       <li data-pl="ogromna sofa i przestrzeń wspólna" data-en="a huge sofa and shared living space">ogromna sofa i przestrzeń wspólna</li>
+      <li data-pl="ręcznie robiona ceramika" data-en="handmade ceramics">ręcznie robiona ceramika</li>
     </ul>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ---------- CERAMIKA ---------- -->
+  <section class="page" id="ceramika">
+    <div class="ceramics-band">
+      <div class="ceramics-photo"><img class="zoomable" src="images/ceramics-vase.jpg" alt="Ręcznie robiony ceramiczny wazon w niebieskie plamki na dębowym stole w salonie" data-gallery="ceramika" data-index="0" loading="lazy"></div>
+      <div class="ceramics-text">
+        <div class="section-head">
+          <p class="section-eyebrow" data-pl="Studio Piegus" data-en="Studio Piegus">Studio Piegus</p>
+          <h2 class="section-title" data-pl="Ceramika z pracowni gospodyni" data-en="Ceramics from the host’s studio">Ceramika z pracowni gospodyni</h2>
+          <p class="section-lede" data-pl="Spora część ceramicznych naczyń, które znajdziecie w domu, została stworzona przez właścicielkę, która na co dzień prowadzi pracownię ceramiki Studio Piegus." data-en="Many of the ceramic dishes you will find in the house were made by the owner, who runs the ceramics studio Studio Piegus.">Spora część ceramicznych naczyń, które znajdziecie w domu, została stworzona przez właścicielkę, która na co dzień prowadzi pracownię ceramiki Studio Piegus.</p>
+          <p class="section-lede" data-pl="Studio zaprasza na zajęcia i warsztaty z ceramiki oraz poleca vouchery prezentowe." data-en="The studio welcomes you to ceramics classes and workshops, and recommends its gift vouchers.">Studio zaprasza na zajęcia i warsztaty z ceramiki oraz poleca vouchery prezentowe.</p>
+        </div>
+        <a class="ceramics-link" href="https://www.studiopiegus.pl" target="_blank" rel="noopener"><span data-pl="Odwiedź Studio Piegus" data-en="Visit Studio Piegus">Odwiedź Studio Piegus</span><span class="arrow">↗</span></a>
+      </div>
+    </div>
   </section>
 
   <div class="divider"></div>
